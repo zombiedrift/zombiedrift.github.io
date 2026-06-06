@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZombieDrift Studio | Hockey Zombie Multiplayer</title>
+    <meta name="description" content="Официальный сайт игровой студии ZombieDrift. Разработчики безумного спортивного экшена Hockey Zombie Multiplayer. Узнайте больше об игре, игровом процессе и технологиях.">
+    <meta name="keywords" content="ZombieDrift, Hockey Zombie, Hockey Zombie Multiplayer, PurrNet, Zero-GC, Unity, 1v1 PvP, инди-игры">
+    <link rel="icon" type="image/png" href="assets/zombiedrift_logo.png">
+    
+    <!-- Google Fonts: Orbitron for Sci-Fi/Athletic & Inter for clean body text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;600;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Canvas for tech particle effect -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Header Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="#" class="logo-group">
+                <img src="assets/zombiedrift_logo.png" alt="ZombieDrift Logo" class="header-logo">
+                <span class="logo-text">ZOMBIE<span>DRIFT</span></span>
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#about-game" class="nav-link">Об игре</a></li>
+                    <li><a href="#chess-phase" class="nav-link">Шахматная фаза</a></li>
+                    <li><a href="#customizer" class="nav-link">Скины</a></li>
+                    <li><a href="#tech-specs" class="nav-link">Технологии</a></li>
+                    <li><a href="#roadmap" class="nav-link">Дорожная карта</a></li>
+                    <li><a href="#contact" class="nav-link">Контакты</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#about-game" class="btn btn-primary btn-sm">Вступить в бой</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section" id="hero">
+            <div class="hero-glow"></div>
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <span class="hero-tagline">Свежий релиз от ZombieDrift</span>
+                    <h1 class="hero-title">HOCKEY ZOMBIE<br><span class="highlight-text">MULTIPLAYER</span></h1>
+                    <p class="hero-desc">
+                        Безумный гибрид спортивного симулятора и кооперативного выживания в формате 1v1 PvP. Крушите толпы зомби клюшкой и забивайте прыгающих зомби-шайб в ворота противника!
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#about-game" class="btn btn-primary" id="btn-hero-learn">Подробнее об игре</a>
+                        <a href="#chess-phase" class="btn btn-secondary" id="btn-hero-play">Сыграть в Chess Phase</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="image-wrapper">
+                        <img src="assets/hockey_zombie_hero.png" alt="Hockey Zombie Gameplay Hero" class="hero-img">
+                        <div class="neon-border-glow"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Game Section -->
+        <section class="about-game-section" id="about-game">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Игровой процесс</span>
+                    <h2 class="section-title">СПОРТ. КРОВЬ. ВЫЖИВАНИЕ.</h2>
+                    <p class="section-subtitle">Динамичные дуэли на ледовой арене с толпами зомби, где классические хоккейные правила смешались с апокалипсисом.</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="card-icon icon-pvp"></div>
+                        <h3 class="card-title">Интенсивный 1v1 PvP</h3>
+                        <p class="card-desc">Вы играете против реального оппонента. Контролируйте лед, командуйте ботами-помощниками и защищайте свои ворота.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="card-icon icon-jumper"></div>
+                        <h3 class="card-title">Живые "Зомби-Шайбы"</h3>
+                        <p class="card-desc">Обычные шайбы устарели! Выслеживайте особых зомби-прыгунов (Jumpers), захватывайте их клюшкой и запускайте мощными бросками в ворота.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="card-icon icon-horde"></div>
+                        <h3 class="card-title">50+ Зомби на арене</h3>
+                        <p class="card-desc">Толпы ходячих мертвецов постоянно мешают игре. Зачищайте лед сильными ударами клюшки, чтобы пробиться к цели.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Chess Phase Simulator -->
+        <section class="chess-phase-section" id="chess-phase">
+            <div class="section-glow"></div>
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Интерактивный симулятор</span>
+                    <h2 class="section-title">ШАХМАТНАЯ ФАЗА (RPS)</h2>
+                    <p class="section-subtitle">Перед началом каждого периода игроки тайно выбирают карты стратегии для ботов-хоккеистов по принципу Камень-Ножницы-Бумага.</p>
+                </div>
+
+                <div class="chess-simulator-box">
+                    <div class="simulator-intro">
+                        <h3>Выберите карту стратегии на следующий период:</h3>
+                        <p>Ваша тактика определит баффы характеристик (скорость, сила удара, здоровье) ваших ботов-помощников.</p>
+                    </div>
+
+                    <div class="cards-container">
+                        <div class="chess-card" data-card="attack" id="card-attack">
+                            <div class="card-inner">
+                                <div class="card-accent accent-attack"></div>
+                                <div class="card-glow"></div>
+                                <h4 class="card-type">АТАКА</h4>
+                                <div class="card-icon-illustration">⚔️</div>
+                                <p class="card-benefit">Побеждает Контроль<br><small>+25% Сила удара</small></p>
+                            </div>
+                        </div>
+
+                        <div class="chess-card" data-card="control" id="card-control">
+                            <div class="card-inner">
+                                <div class="card-accent accent-control"></div>
+                                <div class="card-glow"></div>
+                                <h4 class="card-type">КОНТРОЛЬ</h4>
+                                <div class="card-icon-illustration">🛡️</div>
+                                <p class="card-benefit">Побеждает Защиту<br><small>+20% Скорость бега</small></p>
+                            </div>
+                        </div>
+
+                        <div class="chess-card" data-card="defense" id="card-defense">
+                            <div class="card-inner">
+                                <div class="card-accent accent-defense"></div>
+                                <div class="card-glow"></div>
+                                <h4 class="card-type">ЗАЩИТА</h4>
+                                <div class="card-icon-illustration">🧱</div>
+                                <p class="card-benefit">Побеждает Атаку<br><small>+30% Здоровье ботов</small></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sim-controls">
+                        <button id="btn-reveal-choice" class="btn btn-primary btn-disabled" disabled>Раскрыть карты</button>
+                        <button id="btn-reset-sim" class="btn btn-secondary btn-hidden">Начать заново</button>
+                    </div>
+
+                    <!-- Simulator Output Screen -->
+                    <div class="simulator-screen" id="sim-screen">
+                        <div class="screen-layout">
+                            <div class="player-slot">
+                                <h5>Ваш выбор</h5>
+                                <div class="slot-visual" id="slot-player">—</div>
+                            </div>
+                            <div class="vs-divider">VS</div>
+                            <div class="opponent-slot">
+                                <h5>Выбор Соперника</h5>
+                                <div class="slot-visual" id="slot-opponent">—</div>
+                            </div>
+                        </div>
+                        <div class="screen-result" id="screen-result-text">Выберите карту выше, чтобы начать...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Player Customizer Section -->
+        <section class="customizer-section" id="customizer">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Кастомизация</span>
+                    <h2 class="section-title">НАСТРОЙКА ХОККЕИСТА</h2>
+                    <p class="section-subtitle">Создайте свой стиль на арене. Никнейм и цвета экипировки мгновенно синхронизируются через сеть PurrNet.</p>
+                </div>
+
+                <div class="customizer-grid">
+                    <!-- Configurator Panel -->
+                    <div class="config-panel glass-panel">
+                        <h3>Панель раздевалки</h3>
+                        <div class="input-group">
+                            <label for="custom-nickname">Имя хоккеиста (Никнейм)</label>
+                            <input type="text" id="custom-nickname" value="ZombieKicker_99" maxlength="16" placeholder="Введите никнейм">
+                        </div>
+
+                        <div class="color-picker-group">
+                            <label>Цвет команды (SyncVar)</label>
+                            <div class="color-options">
+                                <button class="color-btn active" data-color="#00ff66" style="background-color: #00ff66;" aria-label="Toxic Green"></button>
+                                <button class="color-btn" data-color="#00d2ff" style="background-color: #00d2ff;" aria-label="Ice Blue"></button>
+                                <button class="color-btn" data-color="#ff007f" style="background-color: #ff007f;" aria-label="Neon Pink"></button>
+                                <button class="color-btn" data-color="#bd00ff" style="background-color: #bd00ff;" aria-label="Electric Purple"></button>
+                                <button class="color-btn" data-color="#ffcc00" style="background-color: #ffcc00;" aria-label="Cyber Gold"></button>
+                            </div>
+                        </div>
+
+                        <div class="skin-selector-group">
+                            <label>Экипировка (SkinIndex)</label>
+                            <select id="skin-index-select" class="custom-select">
+                                <option value="0">Стандартный джерси (Jersey Retro)</option>
+                                <option value="1">Кибер-защита (Cyber Armor)</option>
+                                <option value="2">Выживший хоккеист (Wasteland Survivor)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Customizer Preview Card -->
+                    <div class="preview-panel glass-panel">
+                        <div class="jersey-preview">
+                            <div class="nameplate" id="player-nameplate">ZombieKicker_99</div>
+                            
+                            <!-- Detailed SVG Character representation -->
+                            <div class="player-svg-container">
+                                <svg id="player-svg" viewBox="0 0 200 280" width="100%" height="100%">
+                                    <!-- Glow Backdrop Filter -->
+                                    <defs>
+                                        <filter id="svg-neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+                                            <feGaussianBlur stdDeviation="6" result="blur" />
+                                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                        </filter>
+                                    </defs>
+                                    <!-- Head/Helmet -->
+                                    <circle cx="100" cy="50" r="22" fill="#1b223c" stroke="#555" stroke-width="3" />
+                                    <path d="M 85,50 Q 100,28 115,50 Z" fill="#333" />
+                                    <!-- Visor -->
+                                    <rect x="86" y="44" width="28" height="8" rx="3" id="player-visor" fill="#00ff66" filter="url(#svg-neon-glow)" />
+                                    <!-- Shoulder Pads -->
+                                    <path d="M 50,90 Q 100,70 150,90 L 160,115 L 40,115 Z" id="player-armor" fill="#00ff66" stroke="#101524" stroke-width="2" />
+                                    <!-- Torso / Jersey -->
+                                    <rect x="65" y="115" width="70" height="90" rx="5" id="player-jersey" fill="#00ff66" />
+                                    <rect x="78" y="125" width="44" height="60" rx="3" fill="#121829" opacity="0.8" />
+                                    <text x="100" y="165" font-family="'Orbitron', sans-serif" font-size="28" font-weight="900" fill="#fff" text-anchor="middle" id="player-number">99</text>
+                                    <!-- Arms -->
+                                    <path d="M 65,115 L 35,160 L 50,170 L 70,135 Z" fill="#1b223c" />
+                                    <path d="M 135,115 L 165,160 L 150,170 L 130,135 Z" fill="#1b223c" />
+                                    <!-- Hockey Stick -->
+                                    <line x1="38" y1="160" x2="25" y2="240" stroke="#8b5a2b" stroke-width="6" stroke-linecap="round" />
+                                    <path d="M 25,240 Q 15,245 5,238 L 8,228 Q 18,235 25,232 Z" fill="#333" />
+                                    <!-- Legs -->
+                                    <rect x="72" y="205" width="22" height="45" fill="#1b223c" />
+                                    <rect x="106" y="205" width="22" height="45" fill="#1b223c" />
+                                    <!-- Skates -->
+                                    <path d="M 67,250 L 94,250 L 94,260 L 67,260 Z" fill="#555" />
+                                    <path d="M 106,250 L 133,250 L 133,260 L 106,260 Z" fill="#555" />
+                                    <line x1="60" y1="262" x2="100" y2="262" stroke="#fff" stroke-width="2" />
+                                    <line x1="100" y1="262" x2="140" y2="262" stroke="#fff" stroke-width="2" />
+                                </svg>
+                            </div>
+
+                            <div class="custom-status">
+                                <span class="pulse-indicator"></span> СИНХРОНИЗИРОВАНО С СЕРВЕРОМ
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech & Engine Section -->
+        <section class="tech-specs-section" id="tech-specs">
+            <div class="tech-glow"></div>
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Архитектура & Производительность</span>
+                    <h2 class="section-title">ФИЛОСОФИЯ ZERO-GC</h2>
+                    <p class="section-subtitle">Мы проектируем код с расчетом на максимальную частоту кадров и стабильный сетевой пинг, полностью исключив сборщик мусора из горячих циклов.</p>
+                </div>
+
+                <div class="tech-grid">
+                    <!-- Text Specs -->
+                    <div class="tech-info">
+                        <h3>Сетевые стандарты ZombieDrift</h3>
+                        <p class="tech-paragraph">
+                            Применение сетевого фреймворка <strong>PurrNet</strong> с авторитетным сервером позволило добиться мгновенного отклика. Клиент производит локальное предсказание движения хоккеиста, в то время как сервер беспристрастно управляет поведением ИИ-зомби и счетом.
+                        </p>
+                        
+                        <div class="tech-features-list">
+                            <div class="tech-feature-item">
+                                <h4>🔒 Валидация входных данных и PhysX Guard</h4>
+                                <p>Защита от сбоев физического движка PhysX (краши BodySetPose) за счет строгой проверки векторов на NaN и Infinity до их применения.</p>
+                            </div>
+                            <div class="tech-feature-item">
+                                <h4>⚡ Кастомный Dual-Pipeline Транспорт</h4>
+                                <p>Наш сетевой транспорт работает на двух независимых конвейерах (Reliable + Unreliable), автоматически разбивая крупные пакеты спавна сцен и обрабатывая повторные отправки при потерях пакетов.</p>
+                            </div>
+                            <div class="tech-feature-item">
+                                <h4>♻️ Object Pooling & Аллокации</h4>
+                                <p>Вся физическая Non-Alloc архитектура (`SphereCastNonAlloc`), а также пулы зомби и VFX пред-выделяются на старте. Нулевые аллокации (Zero-GC) защищают от фризов во время игры.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tech Dashboard -->
+                    <div class="tech-dashboard glass-panel" id="tech-dashboard">
+                        <div class="dashboard-header">
+                            <div class="console-title">NETWORK_DIAGNOSTICS // ACTIVE_SESSION</div>
+                            <div class="console-led green-led"></div>
+                        </div>
+                        <div class="dashboard-stats">
+                            <div class="stat-box">
+                                <span class="stat-label">СЕТЕВОЙ TICKRATE</span>
+                                <span class="stat-val text-neon-cyan" id="dash-tick">60 Hz</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">СИМУЛИРУЕМЫЙ ПИНГ</span>
+                                <span class="stat-val text-neon-green" id="dash-ping">15 ms</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">ЗОМБИ НА АРЕНЕ</span>
+                                <span class="stat-val text-neon-magenta" id="dash-zombies">42 / 50</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-label">GARBAGE ALLOC (GC)</span>
+                                <span class="stat-val text-neon-green">0 B <small>/ frame</small></span>
+                            </div>
+                        </div>
+                        <div class="dashboard-graph">
+                            <div class="graph-bar-container">
+                                <div class="graph-bar" style="height: 60%"></div>
+                                <div class="graph-bar" style="height: 65%"></div>
+                                <div class="graph-bar" style="height: 58%"></div>
+                                <div class="graph-bar" style="height: 72%"></div>
+                                <div class="graph-bar" style="height: 85%"></div>
+                                <div class="graph-bar" style="height: 60%"></div>
+                                <div class="graph-bar" style="height: 40%"></div>
+                                <div class="graph-bar" style="height: 55%"></div>
+                                <div class="graph-bar" style="height: 68%"></div>
+                                <div class="graph-bar" style="height: 70%"></div>
+                                <div class="graph-bar" style="height: 62%"></div>
+                                <div class="graph-bar" style="height: 64%"></div>
+                            </div>
+                            <div class="graph-label">Динамика сетевой задержки (без скачков)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap / Devlog Section -->
+        <section class="roadmap-section" id="roadmap">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Развитие</span>
+                    <h2 class="section-title">ДОРОЖНАЯ КАРТА ПРОЕКТА</h2>
+                    <p class="section-subtitle">Следите за прогрессом разработки Hockey Zombie Multiplayer. Мы постоянно улучшаем код и добавляем новые возможности.</p>
+                </div>
+
+                <div class="roadmap-timeline">
+                    <div class="timeline-item completed">
+                        <div class="timeline-badge">✓</div>
+                        <div class="timeline-content glass-panel">
+                            <span class="timeline-date">Апрель 2026</span>
+                            <h4>Игровой пайплайн и ИИ ботов</h4>
+                            <p>Реализован полный цикл 3-периодного матча, сетевая фаза выбора карт стратегий (Chess Phase) и авторитетный ИИ ботов-хоккеистов, способных бить зомби и забивать прыгунов.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item completed">
+                        <div class="timeline-badge">✓</div>
+                        <div class="timeline-content glass-panel">
+                            <span class="timeline-date">Май 2026</span>
+                            <h4>Физическая стабильность и кастомизация</h4>
+                            <p>Интегрирован менеджер данных игрока (PlayerDataManager) с поддержкой PlayerPrefs. Добавлена NaN-валидация для пресечения PhysX крашей на сервере. Подготовлен визуальный контроллер смены материалов.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item active">
+                        <div class="timeline-badge">●</div>
+                        <div class="timeline-content glass-panel animate-pulse-border">
+                            <span class="timeline-date">Июнь 2026 (Текущий этап)</span>
+                            <h4>🧟 Исправление синхронизации зомби & Скины</h4>
+                            <p>Оптимизация работы Rigidbody и NavMeshAgent зомби на стороне клиента (избавление от подергиваний). Развертывание UI смены скинов хоккеистов на ParrelSync мультиплеерных тестах.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item future">
+                        <div class="timeline-badge">?</div>
+                        <div class="timeline-content glass-panel">
+                            <span class="timeline-date">Июль - Август 2026</span>
+                            <h4>Геймплей и защита</h4>
+                            <p>Внедрение механики фрейл-стейта при пропущенных голах от зомби, аудиосистемы озвучки голов и серверного античита (Server-side validation) с лагокомпенсацией для "шайбы".</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="contact-glow"></div>
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Обратная связь</span>
+                    <h2 class="section-title">СВЯЗАТЬСЯ СО СТУДИЕЙ</h2>
+                    <p class="section-subtitle">Хотите предложить фичу, сообщить о баге или обсудить сотрудничество? Напишите нам!</p>
+                </div>
+
+                <div class="contact-box glass-panel">
+                    <form id="studio-contact-form" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="form-name">Ваше имя</label>
+                                <input type="text" id="form-name" required placeholder="Максим">
+                            </div>
+                            <div class="form-col">
+                                <label for="form-email">Эл. почта</label>
+                                <input type="email" id="form-email" required placeholder="player@zombiedrift.com">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-message">Сообщение</label>
+                            <textarea id="form-message" rows="5" required placeholder="Расскажите нам о ваших идеях по улучшению физики зомби или сетевого кода..."></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" id="btn-submit-form" class="btn btn-primary">Отправить сообщение</button>
+                        </div>
+                        <div id="form-feedback" class="form-feedback-message hidden"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <img src="assets/zombiedrift_logo.png" alt="ZombieDrift Studio" class="footer-logo">
+                <p>ZombieDrift Studio — независимый разработчик высокодинамичных мультиплеерных экшенов.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Навигация</h4>
+                <ul>
+                    <li><a href="#about-game">Об игре</a></li>
+                    <li><a href="#chess-phase">Chess Phase</a></li>
+                    <li><a href="#customizer">Кастомизация</a></li>
+                    <li><a href="#tech-specs">Технологии</a></li>
+                </ul>
+            </div>
+            <div class="footer-credits">
+                <p>&copy; 2026 ZombieDrift. Все права защищены.</p>
+                <p>Сделано для демонстрации проекта Hockey Zombie Multiplayer.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
