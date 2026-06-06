@@ -19,34 +19,50 @@
     <!-- Background Canvas for tech particle effect -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Header Navigation -->
-    <header class="main-header">
-        <div class="header-container">
-            <a href="#" class="logo-group">
-                <img src="assets/zombiedrift_logo.png" alt="ZombieDrift Logo" class="header-logo">
-                <span class="logo-text">ZOMBIE<span>DRIFT</span></span>
+    <!-- Floating Pill Navigation (W&P Style) -->
+    <header>
+        <nav class="site-nav fade-in" id="site-nav">
+            <a href="#hero" class="site-nav__brand">
+                <img src="assets/zombiedrift_logo.png" alt="ZombieDrift Logo" class="site-nav__logo">
+                <span class="brand-zombie">ZOMBIE</span><span class="brand-drift">DRIFT</span>
             </a>
-            
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="#about-game" class="nav-link" data-i18n="nav-about">Об игре</a></li>
-                    <li><a href="#chess-phase" class="nav-link" data-i18n="nav-chess">Шахматная фаза</a></li>
-                    <li><a href="#customizer" class="nav-link" data-i18n="nav-skins">Скины</a></li>
-                    <li><a href="#roadmap" class="nav-link" data-i18n="nav-roadmap">Дорожная карта</a></li>
-                    <li><a href="#contact" class="nav-link" data-i18n="nav-contact">Контакты</a></li>
-                </ul>
-            </nav>
-            
-            <div class="header-actions">
-                <!-- Language Selector -->
-                <div class="lang-selector">
+            <div class="site-nav__links" id="nav-links">
+                <a href="#about-game" class="nav-link" data-i18n="nav-about">
+                    <span class="nav-text-desktop">Об игре</span>
+                    <span class="nav-text-mobile">Игра</span>
+                </a>
+                <a href="#chess-phase" class="nav-link" data-i18n="nav-chess">
+                    <span class="nav-text-desktop">Шахматная фаза</span>
+                    <span class="nav-text-mobile">Chess</span>
+                </a>
+                <a href="#customizer" class="nav-link" data-i18n="nav-skins">
+                    <span class="nav-text-desktop">Скины</span>
+                    <span class="nav-text-mobile">Скины</span>
+                </a>
+                <a href="#roadmap" class="nav-link" data-i18n="nav-roadmap">
+                    <span class="nav-text-desktop">Дорожная карта</span>
+                    <span class="nav-text-mobile">Roadmap</span>
+                </a>
+                <a href="#contact" class="nav-link" data-i18n="nav-contact">
+                    <span class="nav-text-desktop">Контакты</span>
+                    <span class="nav-text-mobile">📩</span>
+                </a>
+
+                <!-- Language Switcher inside nav links -->
+                <div class="lang-switch-wrapper">
                     <button class="lang-btn active" data-lang="ru">RU</button>
                     <button class="lang-btn" data-lang="en">EN</button>
                     <button class="lang-btn" data-lang="ua">UA</button>
                 </div>
-                <a href="#about-game" class="btn btn-primary btn-sm" data-i18n="btn-join">Вступить в бой</a>
             </div>
-        </div>
+
+            <!-- Hamburger for mobile -->
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
     </header>
 
     <main>

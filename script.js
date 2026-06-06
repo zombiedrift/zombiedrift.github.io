@@ -92,7 +92,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ==========================================
-       2. TRANSLATIONS SYSTEM (LOCALIZATION)
+       2. MOBILE HAMBURGER MENU TOGGLE
+       ========================================== */
+    const menuToggle = document.getElementById('menu-toggle');
+    const mainNav = document.getElementById('main-nav');
+    const headerActions = document.getElementById('header-actions');
+    
+    if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mainNav.classList.toggle('active');
+            headerActions.classList.toggle('active');
+        });
+        
+        // Close menu when clicking nav links
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                mainNav.classList.remove('active');
+                headerActions.classList.remove('active');
+            });
+        });
+    }
+
+
+    /* ==========================================
+       3. TRANSLATIONS SYSTEM (LOCALIZATION)
        ========================================== */
     const translations = {
         ru: {
@@ -173,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Simulator strings
             "choice-att": "⚔️ АТАКА",
             "choice-ctrl": "🛡️ КОНТРОЛЬ",
-            "choice-def": "🧱 ЗАЩИТА",
+            "choice-def": "🧱 ЗАХИСТ",
             "sim-choosing": "ВЫБОР...",
             "res-tie-title": "НИЧЬЯ В ШАХМАТНОЙ ФАЗЕ!",
             "res-tie-desc": "Оба выбрали {choice}. Ваши боты не получили баффов. Период начнется в равных условиях!",
@@ -286,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "nav-skins": "Скіни",
             "nav-roadmap": "Дорожня карта",
             "nav-contact": "Контакти",
-            "btn-join": "Вступити в бій",
+            "btn-join": "Вступить в бій",
             "hero-tag": "Свіжий реліз від ZombieDrift",
             "hero-title": "HOCKEY ZOMBIE<br><span class=\"highlight-text\">MULTIPLAYER</span>",
             "hero-desc": "Шалений гібрид спортивного симулятора та кооперативного виживання у форматі 1v1 PvP. Розбивайте натовпи зомбі ключкою та забивайте зомбі-шайб («стрибунів») у ворота суперника!",
@@ -305,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "chess-title": "ШАХОВА ФАЗА (RPS)",
             "chess-subtitle": "Перед початком кожного періоду гравці таємно обирають карти стратегії для ботів за принципом Камінь-Ножиці-Папір.",
             "chess-intro-title": "Оберіть карту стратегії на наступний період:",
-            "chess-intro-desc": "Ваша тактика визначить баффи характеристик (швидкість, сила удару, здоров'я) ваших ботів-помічників.",
+            "chess-intro-desc": "Ваша тактика визначить баффовання характеристик (швидкість, сила удару, здоров'я) ваших ботів-помічників.",
             "card-att-title": "АТАКА",
             "card-att-benefit": "Перемагає Контроль<br><small>+25% Сила удару</small>",
             "card-ctrl-title": "КОНТРОЛЬ",
@@ -329,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "cust-opt-surv": "Вцілілий хокеїст (Wasteland Survivor)",
             "cust-sync-status": "СИНХРОНІЗОВАНО З СЕРВЕРОМ",
             "road-tag": "Розвиток",
-            "road-title": "ДОРОЖНЯ КАРТА ПРОЕКТУ",
+            "road-title": "ДОРОЖНЯ КАРТА ПРОЕКТА",
             "road-subtitle": "Слідкуйте за прогресом розробки Hockey Zombie Multiplayer. Ми постійно покращуємо код та додаємо нові можливості.",
             "road-date1": "Квітень 2026",
             "road-title1": "Ігровий пайплайн та ШІ ботів",
@@ -339,10 +365,10 @@ document.addEventListener('DOMContentLoaded', () => {
             "road-desc2": "Інтегровано менеджер даних гравця (PlayerDataManager) з підтримкою PlayerPrefs. Додано NaN-валідацію для запобігання PhysX крашів на сервері. Підготовлено візуальний контролер зміни матеріалів.",
             "road-date3": "Червень 2026 (Поточний етап)",
             "road-title3": "🧟 Виправлення синхронізації зомбі & Скіни",
-            "road-desc3": "Оптимізація роботи Rigidbody та NavMeshAgent зомби на стороні клієнта (усунення посмикувань). Розгортання UI зміни скінів хокеїстів на ParrelSync мультиплеєрних тестах.",
+            "road-desc3": "Оптимізація роботи Rigidbody та NavMeshAgent зомби на стороні клієнта (усунення посмикувань). Розгортання UI зміни скінів хокеїстів на ParrelSync мультиплеерних тестах.",
             "road-date4": "Липень - Серпень 2026",
             "road-title4": "Геймплей та захист",
-            "road-desc4": "Впровадження механіки фейл-стейту при пропущених голах від зомбі, аудіосистеми озвучки голів та серверного античіта (Server-side validation) з лагокомпенсацією для стрибуна.",
+            "road-desc4": "Впровадження механіки фейл-стейту при пропущенних голах від зомбі, аудіосистеми озвучки голів та серверного античіта (Server-side validation) з лагокомпенсацією для стрибуна.",
             "cont-tag": "Зворотній зв'язок",
             "cont-title": "ЗВ'ЯЗАТИСЯ ЗІ СТУДІЄЮ",
             "cont-subtitle": "Хочете запропонувати фічу, повідомити про баг або обговорити співпрацю? Напишіть нам!",
@@ -350,7 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "cont-label-email": "Ел. пошта",
             "cont-label-msg": "Повідомлення",
             "btn-send": "Надіслати повідомлення",
-            "foot-desc": "ZombieDrift Studio — незалежний розробник високодинамічних мультиплеєрних екшенів.",
+            "foot-desc": "ZombieDrift Studio — незалежний розробник високодинамічних мультиплеерних екшенів.",
             "foot-nav-title": "Навігація",
             "foot-copy": "&copy; 2026 ZombieDrift. Всі права захищені.",
             "foot-credits": "Зроблено для демонстрації проекту Hockey Zombie Multiplayer.",
@@ -379,11 +405,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!translations[lang]) return;
         currentLang = lang;
         
-        // Update elements with data-i18n attribute
         document.querySelectorAll('[data-i18n]').forEach(elem => {
             const key = elem.getAttribute('data-i18n');
             if (translations[lang][key]) {
-                // Check if key is doc-title (updates title of page)
                 if (key === 'doc-title') {
                     document.title = translations[lang][key];
                 } else {
@@ -392,7 +416,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         
-        // Modify placeholder texts of inputs dynamically
         const nickInput = document.getElementById('custom-nickname');
         const nameInput = document.getElementById('form-name');
         const msgTextarea = document.getElementById('form-message');
@@ -411,13 +434,11 @@ document.addEventListener('DOMContentLoaded', () => {
             msgTextarea.placeholder = "Расскажите нам о ваших идеях по улучшению физики зомби или сетевого кода...";
         }
         
-        // Update dynamic outputs if active
         if (playerChoice === null) {
             screenResult.textContent = translations[lang]['sim-start-prompt'];
         }
     }
 
-    // Set up language toggle actions
     const langButtons = document.querySelectorAll('.lang-btn');
     langButtons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -430,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ==========================================
-       3. INTERACTIVE CHESS PHASE SIMULATOR
+       4. INTERACTIVE CHESS PHASE SIMULATOR
        ========================================== */
     const chessCards = document.querySelectorAll('.chess-card');
     const btnReveal = document.getElementById('btn-reveal-choice');
@@ -461,7 +482,6 @@ document.addEventListener('DOMContentLoaded', () => {
             btnReveal.classList.remove('btn-disabled');
             btnReveal.removeAttribute('disabled');
             
-            // Localized text mapping for slot
             const translationKey = `choice-${playerChoice.substring(0, 4)}`;
             slotPlayer.textContent = translations[currentLang][translationKey];
             slotPlayer.style.borderColor = choiceColors[playerChoice];
@@ -511,7 +531,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function determineChessResult(player, opponent) {
         let title = '';
         let desc = '';
-        let status = 'lose'; // 'win', 'tie', 'lose'
+        let status = 'lose';
         
         if (player === opponent) {
             status = 'tie';
@@ -565,7 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ==========================================
-       4. INTERACTIVE PLAYER CUSTOMIZER
+       5. INTERACTIVE PLAYER CUSTOMIZER
        ========================================== */
     const nicknameInput = document.getElementById('custom-nickname');
     const nameplate = document.getElementById('player-nameplate');
@@ -624,7 +644,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ==========================================
-       5. CONTACT FORM & SUBMISSION HANDLER
+       6. CONTACT FORM & SUBMISSION HANDLER
        ========================================== */
     const form = document.getElementById('studio-contact-form');
     const formFeedback = document.getElementById('form-feedback');
