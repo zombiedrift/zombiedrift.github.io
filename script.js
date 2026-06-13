@@ -194,8 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
             "btn-send": "Отправить сообщение",
             "foot-desc": "ZombieDrift Studio — независимый разработчик высокодинамичных мультиплеерных экшенов.",
             "foot-nav-title": "Навигация",
-            "foot-copy": "&copy; 2026 ZombieDrift. Все права защищены.",
-            "foot-credits": "Сделано для демонстрации проекта Hockey Zombie Multiplayer.",
+            "foot-copy": "&copy; 2026 ZombieDrift Studio™. Все права защищены.",
+            "foot-credits": "Все права на Hockey Zombie Multiplayer™ и товарные знаки ZombieDrift™ защищены.",
+            "foot-legal-link": "Политика конфиденциальности и защита ИС",
+            "legal-toast-msg": "Защита ИС: Копирование материалов и исходного кода запрещено.",
             // Simulator strings
             "choice-att": "⚔️ АТАКА",
             "choice-ctrl": "🛡️ КОНТРОЛЬ",
@@ -286,8 +288,10 @@ document.addEventListener('DOMContentLoaded', () => {
             "btn-send": "Send Message",
             "foot-desc": "ZombieDrift Studio — independent developer of high-octane multiplayer action games.",
             "foot-nav-title": "Navigation",
-            "foot-copy": "&copy; 2026 ZombieDrift. All rights reserved.",
-            "foot-credits": "Made for demonstrating the Hockey Zombie Multiplayer project.",
+            "foot-copy": "&copy; 2026 ZombieDrift Studio™. All rights reserved.",
+            "foot-credits": "All rights to Hockey Zombie Multiplayer™ and ZombieDrift™ trademarks are protected.",
+            "foot-legal-link": "Privacy Policy & IP Protection",
+            "legal-toast-msg": "IP Protection: Copying assets and source code is prohibited.",
             // Simulator strings
             "choice-att": "⚔️ ATTACK",
             "choice-ctrl": "🛡️ CONTROL",
@@ -378,8 +382,10 @@ document.addEventListener('DOMContentLoaded', () => {
             "btn-send": "Надіслати повідомлення",
             "foot-desc": "ZombieDrift Studio — незалежний розробник високодинамічних мультиплеерних екшенів.",
             "foot-nav-title": "Навігація",
-            "foot-copy": "&copy; 2026 ZombieDrift. Всі права захищені.",
-            "foot-credits": "Зроблено для демонстрації проекту Hockey Zombie Multiplayer.",
+            "foot-copy": "&copy; 2026 ZombieDrift Studio™. Всі права захищені.",
+            "foot-credits": "Всі права на Hockey Zombie Multiplayer™ та товарні знаки ZombieDrift™ захищені.",
+            "foot-legal-link": "Політика конфіденційності та захист ІВ",
+            "legal-toast-msg": "Захист ІВ: Копіювання матеріалів та вихідного коду заборонено.",
             // Simulator strings
             "choice-att": "⚔️ АТАКА",
             "choice-ctrl": "🛡️ КОНТРОЛЬ",
@@ -434,6 +440,8 @@ document.addEventListener('DOMContentLoaded', () => {
             msgTextarea.placeholder = "Расскажите нам о ваших идеях по улучшению физики зомби или сетевого кода...";
         }
         
+        localStorage.setItem('zombiedrift_lang', lang);
+
         if (playerChoice === null) {
             screenResult.textContent = translations[lang]['sim-start-prompt'];
         }
@@ -448,6 +456,13 @@ document.addEventListener('DOMContentLoaded', () => {
             setLanguage(lang);
         });
     });
+
+    // Load saved language on start
+    const savedLang = localStorage.getItem('zombiedrift_lang');
+    if (savedLang && savedLang !== 'ru') {
+        const btn = document.querySelector(`.lang-btn[data-lang="${savedLang}"]`);
+        if (btn) btn.click();
+    }
 
 
     /* ==========================================
@@ -675,4 +690,48 @@ document.addEventListener('DOMContentLoaded', () => {
             
         }, 1500);
     });
+
+    /* ==========================================
+       7. IP PROTECTION & RIGHT-CLICK TOAST
+       ========================================== */
+    const toast = document.createElement('div');
+    toast.className = 'ip-toast';
+    document.body.appendChild(toast);
+
+    let toastTimeout;
+    function showToast() {
+        const msgKey = 'legal-toast-msg';
+        toast.textContent = translations[currentLang][msgKey] || "Copying protected.";
+        toast.classList.add('show');
+        
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+
+    document.addEventListener('contextmenu', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        e.preventDefault();
+        showToast();
+    });
+
+    document.addEventListener('copy', (e) => {
+        if (window.getSelection().anchorNode) {
+            const parent = window.getSelection().anchorNode.parentNode;
+            if (parent && (parent.tagName === 'INPUT' || parent.tagName === 'TEXTAREA' || parent.closest('.allow-select'))) {
+                return;
+            }
+        }
+        e.preventDefault();
+        showToast();
+    });
+
+    document.addEventListener('dragstart', (e) => {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            showToast();
+        }
+    });
 });
+

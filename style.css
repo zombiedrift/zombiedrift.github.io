@@ -1557,3 +1557,181 @@ section {
         margin-bottom: 0;
     }
 }
+
+/* ==========================================================================
+   INTELLECTUAL PROPERTY PROTECTION & LEGAL PAGE STYLES
+   ========================================================================== */
+
+/* Prevent general text selection on the landing page to protect assets */
+body:not(.allow-select) {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Allow selection on input controls, buttons, forms, and simulator log screen */
+input, textarea, select, button, .simulator-screen, .allow-select {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+/* Prevent image dragging to protect concept art and UI assets */
+img {
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+/* Toast warning for right-click/scraping attempts */
+.ip-toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(7, 9, 19, 0.95);
+    border: 1px solid var(--neon-magenta);
+    box-shadow: var(--glow-magenta);
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-family: var(--font-heading);
+    font-size: 13px;
+    z-index: 10000;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ip-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Legal Page Layout (privacy.html) */
+.legal-body {
+    background-color: var(--bg-dark);
+    font-family: var(--font-body);
+    color: #f1f5f9;
+}
+
+.legal-section {
+    padding: 120px 0 80px 0;
+    min-height: calc(100vh - 200px);
+}
+
+.legal-box {
+    background: rgba(10, 15, 30, 0.8);
+    backdrop-filter: blur(16px);
+    border: var(--border-glass);
+    border-radius: 12px;
+    padding: 48px;
+    box-shadow: var(--shadow-glass);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.legal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.legal-header__title {
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.legal-header__title span {
+    color: var(--neon-cyan);
+    text-shadow: var(--glow-cyan);
+}
+
+.legal-nav-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-heading);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.3s;
+}
+
+.legal-nav-back:hover {
+    color: #ffffff;
+    border-color: var(--neon-green);
+    box-shadow: var(--glow-green);
+    transform: translateX(-4px);
+}
+
+.legal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    line-height: 1.7;
+}
+
+.legal-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.legal-group h3 {
+    font-size: 18px;
+    color: #ffffff;
+    border-left: 3px solid var(--neon-green);
+    padding-left: 12px;
+    margin-top: 10px;
+}
+
+.legal-group h3.ip-title {
+    border-left-color: var(--neon-magenta);
+}
+
+.legal-group p {
+    color: rgba(241, 245, 249, 0.75);
+    font-size: 15px;
+}
+
+.legal-group ul {
+    list-style: disc;
+    padding-left: 20px;
+    color: rgba(241, 245, 249, 0.75);
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.legal-footer-note {
+    border-top: 1px dashed rgba(255, 255, 255, 0.08);
+    padding-top: 24px;
+    margin-top: 40px;
+    color: var(--text-muted);
+    font-size: 13px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .legal-box {
+        padding: 24px 16px;
+    }
+    
+    .legal-header__title {
+        font-size: 24px;
+    }
+}
+
