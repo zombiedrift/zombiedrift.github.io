@@ -2,6 +2,31 @@
    ZOMBIEDRIFT STUDIO - DESIGN SYSTEM & STYLESHEET
    ========================================================================== */
 
+/* --- Roboto Font Faces (SF Pro Alternative - Full Unicode Support) --- */
+@font-face {
+    font-family: 'Roboto';
+    src: url('assets/fonts/SFPro/Roboto-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('assets/fonts/SFPro/Roboto-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('assets/fonts/SFPro/Roboto-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* --- Custom Variables & Theme Tokens --- */
 :root {
     --bg-dark: #070913;
@@ -19,15 +44,15 @@
     --neon-purple: #8200ff;
     --neon-gold: #ffcc00;
     
-    /* Glow Effects */
-    --glow-green: 0 0 10px rgba(0, 255, 102, 0.5), 0 0 25px rgba(0, 255, 102, 0.2);
-    --glow-cyan: 0 0 10px rgba(0, 210, 255, 0.5), 0 0 25px rgba(0, 210, 255, 0.2);
-    --glow-magenta: 0 0 10px rgba(189, 0, 255, 0.5), 0 0 25px rgba(189, 0, 255, 0.2);
-    --glow-gold: 0 0 10px rgba(255, 204, 0, 0.5), 0 0 25px rgba(255, 204, 0, 0.2);
+    /* Glow Effects (50% Reduced) */
+    --glow-green: 0 0 5px rgba(0, 255, 102, 0.25), 0 0 12px rgba(0, 255, 102, 0.1);
+    --glow-cyan: 0 0 5px rgba(0, 210, 255, 0.25), 0 0 12px rgba(0, 210, 255, 0.1);
+    --glow-magenta: 0 0 5px rgba(189, 0, 255, 0.25), 0 0 12px rgba(189, 0, 255, 0.1);
+    --glow-gold: 0 0 5px rgba(255, 204, 0, 0.25), 0 0 12px rgba(255, 204, 0, 0.1);
     
     /* Typography */
-    --font-heading: 'Orbitron', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-heading: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-body: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     
     /* Layout Constants */
     --container-width: 1200px;
@@ -165,7 +190,7 @@ img {
 .btn-primary {
     background-color: var(--neon-green);
     color: var(--bg-darker);
-    box-shadow: 0 0 15px rgba(0, 255, 102, 0.3);
+    box-shadow: 0 0 7px rgba(0, 255, 102, 0.15);
 }
 
 .btn-primary:hover {
@@ -183,7 +208,7 @@ img {
 .btn-secondary:hover {
     border-color: var(--neon-cyan);
     color: var(--neon-cyan);
-    box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+    box-shadow: 0 0 7px rgba(0, 210, 255, 0.1);
     transform: translateY(-2px);
 }
 
@@ -243,7 +268,7 @@ img {
 .site-nav__logo {
     width: 32px;
     height: 32px;
-    filter: drop-shadow(0 0 6px var(--neon-green));
+    filter: drop-shadow(0 0 3px var(--neon-green));
 }
 
 .brand-zombie {
@@ -330,7 +355,7 @@ img {
 .lang-btn.active {
     background: var(--neon-green);
     color: var(--bg-darker);
-    box-shadow: 0 0 10px rgba(0, 255, 102, 0.35);
+    box-shadow: 0 0 5px rgba(0, 255, 102, 0.175);
 }
 
 /* Hamburger Toggle Button */
@@ -484,7 +509,7 @@ img {
     width: 100%;
     height: 100%;
     border-radius: 8px;
-    box-shadow: 0 0 30px rgba(0, 255, 102, 0.2);
+    box-shadow: 0 0 15px rgba(0, 255, 102, 0.1);
     animation: pulseGlow 4s infinite alternate;
     pointer-events: none;
 }
@@ -548,7 +573,7 @@ section {
 .feature-card:hover {
     transform: translateY(-8px);
     border-color: rgba(0, 255, 102, 0.3);
-    box-shadow: 0 10px 30px rgba(0, 255, 102, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 255, 102, 0.05);
 }
 
 .card-icon {
@@ -707,9 +732,9 @@ section {
     opacity: 1;
 }
 
-.chess-card.selected[data-card="attack"] .card-inner { border-color: var(--neon-magenta); box-shadow: 0 0 25px rgba(189, 0, 255, 0.3); }
-.chess-card.selected[data-card="control"] .card-inner { border-color: var(--neon-cyan); box-shadow: 0 0 25px rgba(0, 210, 255, 0.3); }
-.chess-card.selected[data-card="defense"] .card-inner { border-color: var(--neon-green); box-shadow: 0 0 25px rgba(0, 255, 102, 0.3); }
+.chess-card.selected[data-card="attack"] .card-inner { border-color: var(--neon-magenta); box-shadow: 0 0 12px rgba(189, 0, 255, 0.15); }
+.chess-card.selected[data-card="control"] .card-inner { border-color: var(--neon-cyan); box-shadow: 0 0 12px rgba(0, 210, 255, 0.15); }
+.chess-card.selected[data-card="defense"] .card-inner { border-color: var(--neon-green); box-shadow: 0 0 12px rgba(0, 255, 102, 0.15); }
 
 .card-type {
     font-size: 15px;

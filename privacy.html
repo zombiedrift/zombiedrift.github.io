@@ -6,11 +6,8 @@
     <title>ZombieDrift Studio | Privacy Policy & IP Protection</title>
     <meta name="description" content="Политика конфиденциальности и защита интеллектуальной собственности Hockey Zombie Multiplayer от ZombieDrift Studio.">
     <link rel="icon" type="image/png" href="assets/zombiedrift_logo.png">
-    
-    <!-- Google Fonts: Orbitron & Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link rel="canonical" href="https://zombiedrift.github.io/privacy.html">
+    <meta name="robots" content="index, follow">
     
     <link rel="stylesheet" href="style.css">
 </head>
@@ -150,25 +147,37 @@
         document.addEventListener('DOMContentLoaded', () => {
             /* Language Switcher */
             const buttons = document.querySelectorAll('.lang-btn');
+            const langMap = { ru: 'ru', en: 'en', ua: 'uk' };
+            
+            function switchLang(lang) {
+                // Update html lang attribute
+                document.documentElement.setAttribute('lang', langMap[lang] || lang);
+                
+                // Show/hide content blocks
+                document.querySelectorAll('[data-lang-content]').forEach(elem => {
+                    if (elem.getAttribute('data-lang-content') === lang) {
+                        elem.style.display = 'block';
+                    } else {
+                        elem.style.display = 'none';
+                    }
+                });
+                
+                // Save to localStorage
+                localStorage.setItem('zombiedrift_lang', lang);
+            }
+            
             buttons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     buttons.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
-                    const lang = btn.getAttribute('data-lang');
-                    
-                    document.querySelectorAll('[data-lang-content]').forEach(elem => {
-                        if (elem.getAttribute('data-lang-content') === lang) {
-                            elem.style.display = 'block';
-                        } else {
-                            elem.style.display = 'none';
-                        }
-                    });
+                    switchLang(btn.getAttribute('data-lang'));
                 });
             });
             
-            // Sync with parent URL params
+            // Sync with localStorage (priority) or URL params (fallback)
+            const savedLang = localStorage.getItem('zombiedrift_lang');
             const urlParams = new URLSearchParams(window.location.search);
-            const startLang = urlParams.get('lang') || 'ru';
+            const startLang = savedLang || urlParams.get('lang') || 'ru';
             const defaultBtn = document.querySelector(`.lang-btn[data-lang="${startLang}"]`) || document.querySelector('.lang-btn');
             if (defaultBtn) defaultBtn.click();
             

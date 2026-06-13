@@ -1,0 +1,9 @@
+# ZombieDrift Studio - Robots.txt
+# https://zombiedrift.github.io
+
+User-agent: *
+Allow: /
+Disallow: /assets/fonts/
+
+# Sitemap
+Sitemap: https://zombiedrift.github.io/sitemap.xml

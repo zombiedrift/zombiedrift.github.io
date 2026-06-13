@@ -411,6 +411,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!translations[lang]) return;
         currentLang = lang;
         
+        // Update <html lang> for SEO & accessibility (ua → uk per ISO 639-1)
+        const langMap = { ru: 'ru', en: 'en', ua: 'uk' };
+        document.documentElement.setAttribute('lang', langMap[lang] || lang);
+        
         document.querySelectorAll('[data-i18n]').forEach(elem => {
             const key = elem.getAttribute('data-i18n');
             if (translations[lang][key]) {
