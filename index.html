@@ -32,10 +32,7 @@
                     <span class="nav-text-desktop">Шахматная фаза</span>
                     <span class="nav-text-mobile">Chess</span>
                 </a>
-                <a href="#customizer" class="nav-link" data-i18n="nav-skins">
-                    <span class="nav-text-desktop">Скины</span>
-                    <span class="nav-text-mobile">Скины</span>
-                </a>
+
                 <a href="#roadmap" class="nav-link" data-i18n="nav-roadmap">
                     <span class="nav-text-desktop">Дорожная карта</span>
                     <span class="nav-text-mobile">Roadmap</span>
@@ -188,96 +185,7 @@
             </div>
         </section>
 
-        <!-- Player Customizer Section -->
-        <section class="customizer-section" id="customizer">
-            <div class="container">
-                <div class="section-header">
-                    <span class="section-tag" data-i18n="cust-tag">Кастомизация</span>
-                    <h2 class="section-title" data-i18n="cust-title">НАСТРОЙКА ХОККЕИСТА</h2>
-                    <p class="section-subtitle" data-i18n="cust-subtitle">Создайте свой стиль на арене. Никнейм и цвета экипировки мгновенно синхронизируются через сеть PurrNet.</p>
-                </div>
 
-                <div class="customizer-grid">
-                    <!-- Configurator Panel -->
-                    <div class="config-panel glass-panel">
-                        <h3 data-i18n="cust-panel-title">Панель раздевалки</h3>
-                        <div class="input-group">
-                            <label for="custom-nickname" data-i18n="cust-label-nick">Имя хоккеиста (Никнейм)</label>
-                            <input type="text" id="custom-nickname" value="ZombieKicker_99" maxlength="16" placeholder="Введите никнейм">
-                        </div>
-
-                        <div class="color-picker-group">
-                            <label data-i18n="cust-label-color">Цвет команды (SyncVar)</label>
-                            <div class="color-options">
-                                <button class="color-btn active" data-color="#00ff66" style="background-color: #00ff66;" aria-label="Toxic Green"></button>
-                                <button class="color-btn" data-color="#00d2ff" style="background-color: #00d2ff;" aria-label="Ice Blue"></button>
-                                <button class="color-btn" data-color="#ff007f" style="background-color: #ff007f;" aria-label="Neon Pink"></button>
-                                <button class="color-btn" data-color="#bd00ff" style="background-color: #bd00ff;" aria-label="Electric Purple"></button>
-                                <button class="color-btn" data-color="#ffcc00" style="background-color: #ffcc00;" aria-label="Cyber Gold"></button>
-                            </div>
-                        </div>
-
-                        <div class="skin-selector-group">
-                            <label data-i18n="cust-label-gear">Экипировка (SkinIndex)</label>
-                            <select id="skin-index-select" class="custom-select">
-                                <option value="0" data-i18n="cust-opt-jersey">Стандартный джерси (Jersey Retro)</option>
-                                <option value="1" data-i18n="cust-opt-armor">Кибер-защита (Cyber Armor)</option>
-                                <option value="2" data-i18n="cust-opt-surv">Выживший хоккеист (Wasteland Survivor)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Customizer Preview Card -->
-                    <div class="preview-panel glass-panel">
-                        <div class="jersey-preview">
-                            <div class="nameplate" id="player-nameplate">ZombieKicker_99</div>
-                            
-                            <!-- Detailed SVG Character representation -->
-                            <div class="player-svg-container">
-                                <svg id="player-svg" viewBox="0 0 200 280" width="100%" height="100%">
-                                    <!-- Glow Backdrop Filter -->
-                                    <defs>
-                                        <filter id="svg-neon-glow" x="-20%" y="-20%" width="140%" height="140%">
-                                            <feGaussianBlur stdDeviation="3" result="blur" />
-                                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                                        </filter>
-                                    </defs>
-                                    <!-- Head/Helmet -->
-                                    <circle cx="100" cy="50" r="22" fill="#1b223c" stroke="#555" stroke-width="3" />
-                                    <path d="M 85,50 Q 100,28 115,50 Z" fill="#333" />
-                                    <!-- Visor -->
-                                    <rect x="86" y="44" width="28" height="8" rx="3" id="player-visor" fill="#00ff66" filter="url(#svg-neon-glow)" />
-                                    <!-- Shoulder Pads -->
-                                    <path d="M 50,90 Q 100,70 150,90 L 160,115 L 40,115 Z" id="player-armor" fill="#00ff66" stroke="#101524" stroke-width="2" />
-                                    <!-- Torso / Jersey -->
-                                    <rect x="65" y="115" width="70" height="90" rx="5" id="player-jersey" fill="#00ff66" />
-                                    <rect x="78" y="125" width="44" height="60" rx="3" fill="#121829" opacity="0.8" />
-                                    <text x="100" y="165" font-family="'Orbitron', sans-serif" font-size="28" font-weight="900" fill="#fff" text-anchor="middle" id="player-number">99</text>
-                                    <!-- Arms -->
-                                    <path d="M 65,115 L 35,160 L 50,170 L 70,135 Z" fill="#1b223c" />
-                                    <path d="M 135,115 L 165,160 L 150,170 L 130,135 Z" fill="#1b223c" />
-                                    <!-- Hockey Stick -->
-                                    <line x1="38" y1="160" x2="25" y2="240" stroke="#8b5a2b" stroke-width="6" stroke-linecap="round" />
-                                    <path d="M 25,240 Q 15,245 5,238 L 8,228 Q 18,235 25,232 Z" fill="#333" />
-                                    <!-- Legs -->
-                                    <rect x="72" y="205" width="22" height="45" fill="#1b223c" />
-                                    <rect x="106" y="205" width="22" height="45" fill="#1b223c" />
-                                    <!-- Skates -->
-                                    <path d="M 67,250 L 94,250 L 94,260 L 67,260 Z" fill="#555" />
-                                    <path d="M 106,250 L 133,250 L 133,260 L 106,260 Z" fill="#555" />
-                                    <line x1="60" y1="262" x2="100" y2="262" stroke="#fff" stroke-width="2" />
-                                    <line x1="100" y1="262" x2="140" y2="262" stroke="#fff" stroke-width="2" />
-                                </svg>
-                            </div>
-
-                            <div class="custom-status">
-                                <span class="pulse-indicator"></span> <span data-i18n="cust-sync-status">СИНХРОНИЗИРОВАНО С СЕРВЕРОМ</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- Roadmap / Devlog Section -->
         <section class="roadmap-section" id="roadmap">
@@ -376,7 +284,7 @@
                 <ul>
                     <li><a href="#about-game" data-i18n="nav-about">Об игре</a></li>
                     <li><a href="#chess-phase" data-i18n="nav-chess">Chess Phase</a></li>
-                    <li><a href="#customizer" data-i18n="nav-skins">Кастомизация</a></li>
+
                     <li><a href="#roadmap" data-i18n="nav-roadmap">Дорожная карта</a></li>
                     <li><a href="privacy.html" data-i18n="foot-legal-link">Политика конфиденциальности и защита ИС</a></li>
                 </ul>
