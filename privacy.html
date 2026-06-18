@@ -149,10 +149,58 @@
 
     <!-- Footer -->
     <footer class="main-footer">
-        <div class="container footer-container" style="grid-template-columns: 1fr; text-align: center; gap: 16px;">
-            <div class="footer-brand" style="align-items: center;">
-                <img src="assets/zombiedrift_logo.png" alt="ZombieDrift Studio" class="footer-logo">
-                <p>&copy; 2026 ZombieDrift Studio™. <span data-lang-content="ru">Все права защищены.</span><span data-lang-content="en" style="display:none;">All rights reserved.</span><span data-lang-content="ua" style="display:none;">Всі права захищені.</span></p>
+        <div class="footer-top-line"></div>
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="index.html#hero" class="footer-brand-title">
+                    <img src="assets/zombiedrift_logo.png" alt="ZombieDrift Logo" class="footer-logo">
+                    <span class="brand-zombie">ZOMBIE</span><span class="brand-drift">DRIFT™</span>
+                </a>
+                <p data-i18n="foot-desc" class="footer-brand-desc">ZombieDrift Studio — независимый разработчик высокодинамичных мультиплеерных экшенов.</p>
+                <div class="footer-socials">
+                    <a href="https://discord.gg/" target="_blank" class="social-btn btn-discord" aria-label="Discord">
+                        <span class="social-icon">💬</span>
+                    </a>
+                    <a href="https://t.me/" target="_blank" class="social-btn btn-telegram" aria-label="Telegram">
+                        <span class="social-icon">✈️</span>
+                    </a>
+                    <a href="https://store.steampowered.com/" target="_blank" class="social-btn btn-steam" aria-label="Steam">
+                        <span class="social-icon">🎮</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-nav">
+                <h4 class="footer-section-title" data-i18n="foot-nav-title">Навигация</h4>
+                <ul class="footer-nav-links">
+                    <li><a href="index.html#about-game" class="footer-link" data-i18n="nav-about">Об игре</a></li>
+                    <li><a href="index.html#chess-phase" class="footer-link" data-i18n="nav-chess">Шахматы</a></li>
+                    <li><a href="index.html#roadmap" class="footer-link" data-i18n="nav-roadmap">Дорожная карта</a></li>
+                    <li><a href="index.html#contact" class="footer-link" data-i18n="nav-contact">Контакты</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-tech">
+                <h4 class="footer-section-title" data-i18n="foot-tech-title">Технологии</h4>
+                <p class="footer-tech-desc" data-i18n="foot-tech-desc">Игра построена на современном стеке для обеспечения нулевого GC и плавной сетевой синхронизации.</p>
+                <div class="tech-badges">
+                    <span class="tech-badge badge-unity"><span class="badge-dot dot-unity"></span>Unity</span>
+                    <span class="tech-badge badge-purrnet"><span class="badge-dot dot-purrnet"></span>PurrNet</span>
+                    <span class="tech-badge badge-zerogc"><span class="badge-dot dot-zerogc"></span>Zero-GC</span>
+                    <span class="tech-badge badge-physx"><span class="badge-dot dot-physx"></span>PhysX</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="container footer-bottom-container">
+                <div class="footer-copy">
+                    <p data-i18n="foot-copy">&copy; 2026 ZombieDrift. Все права защищены.</p>
+                    <p data-i18n="foot-credits" class="footer-credits-text">Сделано для демонстрации проекта Hockey Zombie Multiplayer.</p>
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="privacy.html" class="footer-link" data-i18n="foot-legal-link">Политика конфиденциальности и защита ИС</a>
+                </div>
             </div>
         </div>
     </footer>

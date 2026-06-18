@@ -189,6 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "foot-copy": "&copy; 2026 ZombieDrift Studio™. Все права защищены.",
             "foot-credits": "Все права на Hockey Zombie Multiplayer™ и товарные знаки ZombieDrift™ защищены.",
             "foot-legal-link": "Политика конфиденциальности и защита ИС",
+            "foot-tech-title": "Технологии",
+            "foot-tech-desc": "Игра построена на современном стеке для обеспечения нулевого GC и плавной сетевой синхронизации.",
             "legal-toast-msg": "Защита ИС: Копирование материалов и исходного кода запрещено.",
             // Simulator strings
             "choice-att": "⚔️ АТАКА",
@@ -276,6 +278,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "foot-copy": "&copy; 2026 ZombieDrift Studio™. All rights reserved.",
             "foot-credits": "All rights to Hockey Zombie Multiplayer™ and ZombieDrift™ trademarks are protected.",
             "foot-legal-link": "Privacy Policy & IP Protection",
+            "foot-tech-title": "Technologies",
+            "foot-tech-desc": "The game is built on a modern stack ensuring Zero-GC performance and smooth netcode sync.",
             "legal-toast-msg": "IP Protection: Copying assets and source code is prohibited.",
             // Simulator strings
             "choice-att": "⚔️ ATTACK",
@@ -363,6 +367,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "foot-copy": "&copy; 2026 ZombieDrift Studio™. Всі права захищені.",
             "foot-credits": "Всі права на Hockey Zombie Multiplayer™ та товарні знаки ZombieDrift™ захищені.",
             "foot-legal-link": "Політика конфіденційності та захист ІВ",
+            "foot-tech-title": "Технології",
+            "foot-tech-desc": "Гра побудована на сучасному стеку для забезпечення нульового GC та плавної мережевої синхронізації.",
             "legal-toast-msg": "Захист ІВ: Копіювання матеріалів та вихідного коду заборонено.",
             // Simulator strings
             "choice-att": "⚔️ АТАКА",
