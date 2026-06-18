@@ -586,6 +586,16 @@ section {
     background-color: rgba(255, 255, 255, 0.03);
     border: 1px dashed rgba(255, 255, 255, 0.1);
     position: relative;
+    transition: all 0.3s ease;
+}
+
+.card-icon::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background-repeat: no-repeat;
     background-position: center;
     transition: all 0.3s ease;
@@ -598,9 +608,9 @@ section {
 }
 
 /* Custom Icons replacement */
-.icon-pvp { background-image: url('icons8-hockey-stick-24.png'); background-size: 24px 24px; }
-.icon-jumper { background-image: url('icons8-zombie-50.png'); background-size: 32px 32px; }
-.icon-horde { background-image: url('icons8-skull-50.png'); background-size: 32px 32px; }
+.icon-pvp::before { background-image: url('icons8-hockey-stick-24.png'); background-size: 24px 24px; }
+.icon-jumper::before { background-image: url('icons8-zombie-50.png'); background-size: 32px 32px; filter: brightness(0) invert(1); }
+.icon-horde::before { background-image: url('icons8-skull-50.png'); background-size: 32px 32px; filter: brightness(0) invert(1); }
 
 .card-title {
     font-size: 18px;
@@ -756,6 +766,7 @@ section {
     width: 48px;
     height: 48px;
     object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 
 .chess-card:hover .card-icon-illustration {
