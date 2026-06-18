@@ -849,20 +849,44 @@ section {
 .slot-visual {
     width: 100%;
     max-width: 160px;
-    height: 50px;
+    height: 90px;
     background: #0a0d18;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
+    border-radius: 8px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     font-family: var(--font-heading);
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
     letter-spacing: 0.05em;
     transition: all 0.3s;
     text-align: center;
-    padding: 0 8px;
+    padding: 12px 8px;
+    gap: 8px;
+}
+
+.slot-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    animation: slotPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.slot-text {
+    animation: slotPop 0.3s ease forwards;
+}
+
+@keyframes slotPop {
+    0% {
+        transform: scale(0.85);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .vs-divider {

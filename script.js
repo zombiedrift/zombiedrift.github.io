@@ -3,7 +3,10 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-    
+    let playerChoice = null;
+    let opponentChoice = null;
+    let isRevealed = false;
+
     /* ==========================================
        1. BACKGROUND CANVAS PARTICLE EFFECT
        ========================================== */
@@ -496,6 +499,38 @@ document.addEventListener('DOMContentLoaded', () => {
         if (playerChoice === null && screenResult) {
             screenResult.textContent = translations[lang]['sim-start-prompt'];
         }
+
+        // Update simulator slots reactively if elements are loaded
+        const slotPlayer = document.getElementById('slot-player');
+        const slotOpponent = document.getElementById('slot-opponent');
+        if (slotPlayer && slotOpponent) {
+            if (playerChoice) {
+                updateSlotVisual(slotPlayer, playerChoice);
+            } else {
+                updateSlotVisual(slotPlayer, null);
+            }
+
+            if (isRevealed && opponentChoice) {
+                updateSlotVisual(slotOpponent, opponentChoice);
+            } else if (playerChoice && !isRevealed) {
+                updateSlotVisual(slotOpponent, null);
+                if (screenResult) {
+                    if (lang === 'en') {
+                        screenResult.textContent = 'Card selected. Press "Reveal Cards" to run simulation.';
+                    } else if (lang === 'ua') {
+                        screenResult.textContent = 'Карту обрано. Натисніть "Розкрити карти" для симуляції періоду.';
+                    } else {
+                        screenResult.textContent = 'Карта выбрана. Нажмите "Раскрыть карты" для симуляции периода.';
+                    }
+                }
+            } else {
+                updateSlotVisual(slotOpponent, null);
+            }
+        }
+
+        if (isRevealed && playerChoice && opponentChoice && screenResult) {
+            determineChessResult(playerChoice, opponentChoice);
+        }
     }
 
     const langButtons = document.querySelectorAll('.lang-btn');
@@ -546,14 +581,92 @@ document.addEventListener('DOMContentLoaded', () => {
     const slotOpponent = document.getElementById('slot-opponent');
     const screenResult = document.getElementById('screen-result-text');
     
-    let playerChoice = null;
     const choices = ['attack', 'control', 'defense'];
     
+    const choiceIcons = {
+        attack: 'icons8-sword-50.png',
+        control: 'icons8-brain-64.png',
+        defense: 'icons8-shield-50.png'
+    };
+
+    const choiceKeyMap = {
+        attack: 'att',
+        control: 'ctrl',
+        defense: 'def'
+    };
+
     const choiceColors = {
         attack: '#bd00ff', // Magenta
         control: '#00d2ff', // Cyan
         defense: '#00ff66'  // Green
     };
+
+    function updateSlotVisual(slotElement, choice) {
+        if (!slotElement) return;
+
+        if (!choice) {
+            slotElement.innerHTML = '—';
+            slotElement.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+            slotElement.style.boxShadow = 'none';
+            return;
+        }
+
+        if (choice === 'choosing') {
+            slotElement.innerHTML = `<span class="slot-text" style="color: var(--text-muted); opacity: 0.6;">${translations[currentLang]['sim-choosing']}</span>`;
+            slotElement.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            slotElement.style.boxShadow = 'none';
+            return;
+        }
+
+        const iconFile = choiceIcons[choice];
+        const keySuffix = choiceKeyMap[choice];
+        const fullText = translations[currentLang][`choice-${keySuffix}`];
+        const choiceName = fullText.includes(' ') ? fullText.split(' ')[1] : fullText;
+        const color = choiceColors[choice];
+        
+        slotElement.innerHTML = `
+            <img src="${iconFile}" class="slot-icon" style="filter: brightness(0) invert(1) drop-shadow(0 0 5px ${color})" alt="${choiceName}">
+            <span class="slot-text" style="color: ${color}">${choiceName}</span>
+        `;
+        slotElement.style.borderColor = color;
+        slotElement.style.boxShadow = `0 0 10px ${color}`;
+    }
+
+    function determineChessResult(player, opponent) {
+        const screenResult = document.getElementById('screen-result-text');
+        if (!screenResult) return;
+
+        let title = '';
+        let desc = '';
+        let status = 'lose';
+        
+        if (player === opponent) {
+            status = 'tie';
+        } else if (
+            (player === 'attack' && opponent === 'control') ||
+            (player === 'control' && opponent === 'defense') ||
+            (player === 'defense' && opponent === 'attack')
+        ) {
+            status = 'win';
+        }
+        
+        if (status === 'tie') {
+            title = translations[currentLang]['res-tie-title'];
+            const choiceText = translations[currentLang][`choice-${choiceKeyMap[player]}`].split(' ')[1];
+            desc = translations[currentLang]['res-tie-desc'].replace('{choice}', choiceText);
+            screenResult.style.color = 'var(--text-muted)';
+        } else if (status === 'win') {
+            title = translations[currentLang]['res-win-title'];
+            desc = translations[currentLang][`res-win-${choiceKeyMap[player]}`];
+            screenResult.style.color = 'var(--neon-green)';
+        } else {
+            title = translations[currentLang]['res-lose-title'];
+            desc = translations[currentLang][`res-lose-${choiceKeyMap[opponent]}`];
+            screenResult.style.color = '#ff3333';
+        }
+        
+        screenResult.innerHTML = `<strong>${title}</strong><br>${desc}`;
+    }
 
     if (chessCards.length > 0 && btnReveal && btnReset && slotPlayer && slotOpponent && screenResult) {
         chessCards.forEach(card => {
@@ -569,10 +682,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btnReveal.classList.remove('btn-disabled');
                 btnReveal.removeAttribute('disabled');
                 
-                const translationKey = `choice-${playerChoice.substring(0, 4)}`;
-                slotPlayer.textContent = translations[currentLang][translationKey];
-                slotPlayer.style.borderColor = choiceColors[playerChoice];
-                slotPlayer.style.boxShadow = `0 0 10px ${choiceColors[playerChoice]}`;
+                updateSlotVisual(slotPlayer, playerChoice);
                 
                 if (currentLang === 'en') {
                     screenResult.textContent = 'Card selected. Press "Reveal Cards" to run simulation.';
@@ -589,76 +699,35 @@ document.addEventListener('DOMContentLoaded', () => {
             
             btnReveal.classList.add('btn-hidden');
             
-            slotOpponent.textContent = translations[currentLang]['sim-choosing'];
-            slotOpponent.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-            slotOpponent.style.boxShadow = 'none';
+            updateSlotVisual(slotOpponent, 'choosing');
             
             let blinkCount = 0;
             const interval = setInterval(() => {
                 const tempChoice = choices[Math.floor(Math.random() * choices.length)];
-                const translationKey = `choice-${tempChoice.substring(0, 4)}`;
-                slotOpponent.textContent = translations[currentLang][translationKey];
+                updateSlotVisual(slotOpponent, tempChoice);
                 blinkCount++;
                 
                 if (blinkCount > 8) {
                     clearInterval(interval);
                     
-                    const opponentChoice = choices[Math.floor(Math.random() * choices.length)];
-                    const finalTranslationKey = `choice-${opponentChoice.substring(0, 4)}`;
-                    slotOpponent.textContent = translations[currentLang][finalTranslationKey];
-                    slotOpponent.style.borderColor = choiceColors[opponentChoice];
-                    slotOpponent.style.boxShadow = `0 0 10px ${choiceColors[opponentChoice]}`;
+                    opponentChoice = choices[Math.floor(Math.random() * choices.length)];
+                    isRevealed = true;
                     
+                    updateSlotVisual(slotOpponent, opponentChoice);
                     determineChessResult(playerChoice, opponentChoice);
                     btnReset.classList.remove('btn-hidden');
                 }
             }, 120);
         });
 
-        function determineChessResult(player, opponent) {
-            let title = '';
-            let desc = '';
-            let status = 'lose';
-            
-            if (player === opponent) {
-                status = 'tie';
-            } else if (
-                (player === 'attack' && opponent === 'control') ||
-                (player === 'control' && opponent === 'defense') ||
-                (player === 'defense' && opponent === 'attack')
-            ) {
-                status = 'win';
-            }
-            
-            if (status === 'tie') {
-                title = translations[currentLang]['res-tie-title'];
-                const choiceText = translations[currentLang][`choice-${player.substring(0, 4)}`].split(' ')[1];
-                desc = translations[currentLang]['res-tie-desc'].replace('{choice}', choiceText);
-                screenResult.style.color = 'var(--text-muted)';
-            } else if (status === 'win') {
-                title = translations[currentLang]['res-win-title'];
-                desc = translations[currentLang][`res-win-${player.substring(0, 4)}`];
-                screenResult.style.color = 'var(--neon-green)';
-            } else {
-                title = translations[currentLang]['res-lose-title'];
-                desc = translations[currentLang][`res-lose-${opponent.substring(0, 4)}`];
-                screenResult.style.color = '#ff3333';
-            }
-            
-            screenResult.innerHTML = `<strong>${title}</strong><br>${desc}`;
-        }
-
         btnReset.addEventListener('click', () => {
             playerChoice = null;
+            opponentChoice = null;
+            isRevealed = false;
             chessCards.forEach(c => c.classList.remove('selected'));
             
-            slotPlayer.textContent = '—';
-            slotPlayer.style.borderColor = 'rgba(255, 255, 255, 0.05)';
-            slotPlayer.style.boxShadow = 'none';
-            
-            slotOpponent.textContent = '—';
-            slotOpponent.style.borderColor = 'rgba(255, 255, 255, 0.05)';
-            slotOpponent.style.boxShadow = 'none';
+            updateSlotVisual(slotPlayer, null);
+            updateSlotVisual(slotOpponent, null);
             
             screenResult.textContent = translations[currentLang]['sim-start-prompt'];
             screenResult.style.color = 'var(--text-muted)';
