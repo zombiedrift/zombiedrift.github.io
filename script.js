@@ -14,82 +14,355 @@ document.addEventListener('DOMContentLoaded', () => {
     if (canvas) {
         const ctx = canvas.getContext('2d');
         
-        let particlesArray = [];
-        const colors = [
-            'rgba(0, 255, 102, 0.15)', // Neon Green
-            'rgba(0, 210, 255, 0.12)', // Neon Cyan
-            'rgba(189, 0, 255, 0.08)'  // Neon Magenta
-        ];
+        let crystalsArray = [];
+        let scratchArray = [];
+        let sprayArray = [];
+        
+        let lastMouseX = null;
+        let lastMouseY = null;
+        
+        // Dynamic section offsets for rink lines
+        let sectionOffsets = {
+            hero: 0,
+            about: 1000,
+            chess: 2000,
+            roadmap: 3000,
+            contact: 4000
+        };
+        
+        function updateSectionOffsets() {
+            const hero = document.getElementById('hero');
+            const about = document.getElementById('about-game');
+            const chess = document.getElementById('chess-phase');
+            const roadmap = document.getElementById('roadmap');
+            const contact = document.getElementById('contact');
+            
+            sectionOffsets.hero = hero ? hero.offsetTop : 0;
+            sectionOffsets.about = about ? about.offsetTop : 900;
+            sectionOffsets.chess = chess ? chess.offsetTop : 1700;
+            sectionOffsets.roadmap = roadmap ? roadmap.offsetTop : 2500;
+            sectionOffsets.contact = contact ? contact.offsetTop : 3400;
+        }
         
         function setCanvasSize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            updateSectionOffsets();
         }
         setCanvasSize();
         window.addEventListener('resize', setCanvasSize);
+        window.addEventListener('load', updateSectionOffsets);
         
-        class Particle {
+        // Ice Crystal / Snowflake Particle Class
+        class IceCrystal {
             constructor() {
+                this.reset(true);
+            }
+            
+            reset(randomY = false) {
                 this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 4 + 1;
-                this.speedX = Math.random() * 0.4 - 0.2;
-                this.speedY = Math.random() * 0.4 - 0.2;
+                this.y = randomY ? Math.random() * canvas.height : -20;
+                this.size = Math.random() * 4 + 1.2;
+                // Larger crystals fall faster (parallax)
+                this.speedY = (this.size * 0.22) + Math.random() * 0.3 + 0.1;
+                this.speedX = (Math.random() * 0.4 - 0.2) + 0.05; // slight drift to the right
+                this.swaySpeed = 0.01 + Math.random() * 0.02;
+                this.swayAngle = Math.random() * Math.PI * 2;
+                this.swayRadius = Math.random() * 0.5 + 0.2;
+                this.opacity = (this.size / 5) * 0.35 + 0.05;
+                this.angle = Math.random() * Math.PI * 2;
+                this.spin = (Math.random() - 0.5) * 0.01;
+                
+                // Types: 0 = soft circle, 1 = ice shard (diamond), 2 = cross crystal
+                this.type = Math.floor(Math.random() * 3);
+                
+                // Colors: white, cold cyan-blue, soft green biohazard ice
+                const colors = [
+                    `rgba(240, 248, 255, ${this.opacity})`, // Ice white
+                    `rgba(165, 243, 252, ${this.opacity})`, // Ice cyan
+                    `rgba(180, 255, 200, ${this.opacity * 0.8})` // Biohazard soft green
+                ];
                 this.color = colors[Math.floor(Math.random() * colors.length)];
             }
             
             update() {
-                this.x += this.speedX;
                 this.y += this.speedY;
+                this.swayAngle += this.swaySpeed;
+                this.x += this.speedX + Math.sin(this.swayAngle) * this.swayRadius;
+                this.angle += this.spin;
                 
-                if (this.x > canvas.width) this.x = 0;
-                else if (this.x < 0) this.x = canvas.width;
-                
-                if (this.y > canvas.height) this.y = 0;
-                else if (this.y < 0) this.y = canvas.height;
+                // Reset if off-screen
+                if (this.y > canvas.height + 20) {
+                    this.reset(false);
+                }
+                if (this.x > canvas.width + 20) {
+                    this.x = -20;
+                } else if (this.x < -20) {
+                    this.x = canvas.width + 20;
+                }
             }
             
             draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
                 ctx.fillStyle = this.color;
+                
+                if (this.type === 0) {
+                    // Soft circle snow
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                } else if (this.type === 1) {
+                    // Diamond ice shard
+                    ctx.beginPath();
+                    ctx.moveTo(0, -this.size * 1.5);
+                    ctx.lineTo(this.size, 0);
+                    ctx.lineTo(0, this.size * 1.5);
+                    ctx.lineTo(-this.size, 0);
+                    ctx.closePath();
+                    ctx.fill();
+                } else {
+                    // Ice cross crystal
+                    ctx.strokeStyle = this.color;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(-this.size * 1.2, 0);
+                    ctx.lineTo(this.size * 1.2, 0);
+                    ctx.moveTo(0, -this.size * 1.2);
+                    ctx.lineTo(0, this.size * 1.2);
+                    ctx.stroke();
+                }
+                ctx.restore();
+            }
+        }
+        
+        // Ice Shaving Spray Particle Class
+        class IceSpray {
+            constructor(x, y, vx, vy) {
+                this.x = x;
+                this.y = y;
+                this.vx = vx + (Math.random() - 0.5) * 1.5;
+                this.vy = vy - Math.random() * 1.5;
+                this.size = Math.random() * 2 + 0.8;
+                this.life = 0.6 + Math.random() * 0.4;
+                this.decay = 0.015 + Math.random() * 0.015;
+                this.gravity = 0.08;
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += this.gravity;
+                this.life -= this.decay;
+            }
+            
+            draw() {
+                ctx.fillStyle = `rgba(224, 242, 254, ${this.life * 0.5})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
         
-        function initParticles() {
-            particlesArray = [];
-            const numberOfParticles = Math.floor((canvas.width * canvas.height) / 15000);
-            for (let i = 0; i < numberOfParticles; i++) {
-                particlesArray.push(new Particle());
+        function initCrystals() {
+            crystalsArray = [];
+            const numberOfCrystals = Math.floor((canvas.width * canvas.height) / 10000);
+            const cappedCrystals = Math.min(numberOfCrystals, 120); // Cap for performance
+            for (let i = 0; i < cappedCrystals; i++) {
+                crystalsArray.push(new IceCrystal());
             }
         }
-        initParticles();
-        window.addEventListener('resize', initParticles);
+        initCrystals();
+        window.addEventListener('resize', initCrystals);
+        
+        // Listen to mousemove for ice scratches and sprays
+        window.addEventListener('mousemove', (e) => {
+            const mx = e.clientX;
+            const my = e.clientY;
+            
+            if (lastMouseX !== null && lastMouseY !== null) {
+                const dx = mx - lastMouseX;
+                const dy = my - lastMouseY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                
+                // Add scratch segment if mouse moved
+                if (dist > 1) {
+                    scratchArray.push({
+                        x1: lastMouseX,
+                        y1: lastMouseY,
+                        x2: mx,
+                        y2: my,
+                        life: 1.0,
+                        decay: 0.006 + Math.random() * 0.006
+                    });
+                }
+                
+                // Add spray particles if mouse moved fast
+                if (dist > 6) {
+                    const sprayCount = Math.min(Math.floor(dist / 3), 6);
+                    for (let i = 0; i < sprayCount; i++) {
+                        const ratio = i / sprayCount;
+                        const px = lastMouseX + dx * ratio;
+                        const py = lastMouseY + dy * ratio;
+                        const vx = -dx * 0.15;
+                        const vy = -dy * 0.15;
+                        sprayArray.push(new IceSpray(px, py, vx, vy));
+                    }
+                }
+            }
+            
+            lastMouseX = mx;
+            lastMouseY = my;
+        });
+        
+        // Fade out mouse position when mouse leaves the window
+        window.addEventListener('mouseout', () => {
+            lastMouseX = null;
+            lastMouseY = null;
+        });
+        
+        // Draw hockey rink lines relative to scrollY
+        function drawRinkMarkings() {
+            const sy = window.scrollY;
+            
+            // Draw center circle and red line in Chess Simulator
+            // Chess offset is the center line of the arena
+            const chessCenterY = sectionOffsets.chess + 400; // approximate center of simulator box
+            const centerDrawY = chessCenterY - sy;
+            
+            // Draw red goal lines
+            const topGoalY = sectionOffsets.hero + 150 - sy;
+            
+            // Find total document height to draw bottom goal line
+            const docHeight = document.documentElement.scrollHeight || 4000;
+            const bottomGoalY = docHeight - 200 - sy;
+            
+            // Blue zone lines
+            const blueLine1Y = sectionOffsets.about - sy;
+            const blueLine2Y = sectionOffsets.roadmap - sy;
+            
+            // Draw First Blue Line
+            if (blueLine1Y >= -10 && blueLine1Y <= canvas.height + 10) {
+                ctx.strokeStyle = 'rgba(0, 165, 255, 0.05)';
+                ctx.lineWidth = 6;
+                ctx.beginPath();
+                ctx.moveTo(0, blueLine1Y);
+                ctx.lineTo(canvas.width, blueLine1Y);
+                ctx.stroke();
+            }
+            
+            // Draw Second Blue Line
+            if (blueLine2Y >= -10 && blueLine2Y <= canvas.height + 10) {
+                ctx.strokeStyle = 'rgba(0, 165, 255, 0.05)';
+                ctx.lineWidth = 6;
+                ctx.beginPath();
+                ctx.moveTo(0, blueLine2Y);
+                ctx.lineTo(canvas.width, blueLine2Y);
+                ctx.stroke();
+            }
+            
+            // Draw Center red line, center faceoff circle, and faceoff dots
+            if (centerDrawY >= -150 && centerDrawY <= canvas.height + 150) {
+                // Red center line
+                ctx.strokeStyle = 'rgba(255, 60, 60, 0.04)';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.moveTo(0, centerDrawY);
+                ctx.lineTo(canvas.width, centerDrawY);
+                ctx.stroke();
+                
+                // Center faceoff circle
+                ctx.strokeStyle = 'rgba(0, 165, 255, 0.04)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(canvas.width / 2, centerDrawY, 110, 0, Math.PI * 2);
+                ctx.stroke();
+                
+                // Center faceoff dot
+                ctx.fillStyle = 'rgba(255, 60, 60, 0.05)';
+                ctx.beginPath();
+                ctx.arc(canvas.width / 2, centerDrawY, 8, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            // Goal crease at top
+            if (topGoalY >= -100 && topGoalY <= canvas.height + 100) {
+                // Goal line
+                ctx.strokeStyle = 'rgba(255, 60, 60, 0.04)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(0, topGoalY);
+                ctx.lineTo(canvas.width, topGoalY);
+                ctx.stroke();
+                
+                // Goal crease (semi circle facing down)
+                ctx.strokeStyle = 'rgba(0, 165, 255, 0.03)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(canvas.width / 2, topGoalY, 50, 0, Math.PI);
+                ctx.stroke();
+            }
+            
+            // Goal crease at bottom
+            if (bottomGoalY >= -100 && bottomGoalY <= canvas.height + 100) {
+                // Goal line
+                ctx.strokeStyle = 'rgba(255, 60, 60, 0.04)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(0, bottomGoalY);
+                ctx.lineTo(canvas.width, bottomGoalY);
+                ctx.stroke();
+                
+                // Goal crease (semi circle facing up)
+                ctx.strokeStyle = 'rgba(0, 165, 255, 0.03)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(canvas.width / 2, bottomGoalY, 50, Math.PI, Math.PI * 2);
+                ctx.stroke();
+            }
+        }
         
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.01)';
-            ctx.lineWidth = 1;
-            const gridSize = 80;
-            for (let x = 0; x < canvas.width; x += gridSize) {
+            // 1. Draw Rink Markings in background
+            drawRinkMarkings();
+            
+            // 2. Draw & Update Skate Scratches
+            for (let i = scratchArray.length - 1; i >= 0; i--) {
+                const s = scratchArray[i];
+                s.life -= s.decay;
+                if (s.life <= 0) {
+                    scratchArray.splice(i, 1);
+                    continue;
+                }
+                
+                ctx.strokeStyle = `rgba(230, 245, 255, ${s.life * 0.15})`;
+                ctx.lineWidth = 1 + s.life * 1.5;
                 ctx.beginPath();
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, canvas.height);
-                ctx.stroke();
-            }
-            for (let y = 0; y < canvas.height; y += gridSize) {
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(canvas.width, y);
+                ctx.moveTo(s.x1, s.y1);
+                ctx.lineTo(s.x2, s.y2);
                 ctx.stroke();
             }
             
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
+            // 3. Draw & Update Spray
+            for (let i = sprayArray.length - 1; i >= 0; i--) {
+                const sp = sprayArray[i];
+                sp.update();
+                if (sp.life <= 0) {
+                    sprayArray.splice(i, 1);
+                    continue;
+                }
+                sp.draw();
             }
+            
+            // 4. Draw & Update Snowflakes / crystals
+            for (let i = 0; i < crystalsArray.length; i++) {
+                crystalsArray[i].update();
+                crystalsArray[i].draw();
+            }
+            
             requestAnimationFrame(animateParticles);
         }
         animateParticles();
