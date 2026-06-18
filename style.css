@@ -58,9 +58,7 @@
     --container-width: 1200px;
     --header-height: 80px;
     
-    /* Custom Swatch Colors (Used by Player Customizer) */
-    --player-color: #00ff66;
-    --player-visor-color: #00ff66;
+
 }
 
 /* --- Base & Reset Styles --- */
@@ -263,6 +261,7 @@ img {
     color: #ffffff;
     transition: color 0.3s;
     white-space: nowrap;
+    flex-shrink: 0; /* Prevent brand from shrinking and causing overlaps */
 }
 
 .site-nav__logo {
@@ -295,6 +294,7 @@ img {
     display: flex;
     align-items: center;
     gap: 20px;
+    flex-shrink: 0; /* Prevent links container from shrinking and overlapping brand */
 }
 
 .nav-link {
@@ -583,22 +583,24 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
-    background: rgba(255, 255, 255, 0.03);
+    background-color: rgba(255, 255, 255, 0.03);
     border: 1px dashed rgba(255, 255, 255, 0.1);
     position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.3s ease;
 }
 
 .feature-card:hover .card-icon {
-    background: rgba(0, 255, 102, 0.05);
+    background-color: rgba(0, 255, 102, 0.05);
     border: 1px dashed var(--neon-green);
     box-shadow: var(--glow-green);
 }
 
-/* Emojis placement */
-.icon-pvp::before { content: "🏒"; }
-.icon-jumper::before { content: "🧟"; }
-.icon-horde::before { content: "💀"; }
+/* Custom Icons replacement */
+.icon-pvp { background-image: url('icons8-hockey-stick-24.png'); background-size: 24px 24px; }
+.icon-jumper { background-image: url('icons8-zombie-50.png'); background-size: 32px 32px; }
+.icon-horde { background-image: url('icons8-skull-50.png'); background-size: 32px 32px; }
 
 .card-title {
     font-size: 18px;
@@ -742,9 +744,18 @@ section {
 }
 
 .card-icon-illustration {
-    font-size: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
     margin: 12px 0;
     transition: transform 0.3s;
+}
+
+.card-icon-illustration img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
 }
 
 .chess-card:hover .card-icon-illustration {
@@ -867,179 +878,7 @@ section {
     line-height: 1.5;
 }
 
-/* --- Player Customizer Section --- */
-.customizer-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: stretch;
-}
 
-.config-panel {
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-.config-panel h3 {
-    font-size: 20px;
-    margin-bottom: -10px;
-    border-left: 3px solid var(--neon-green);
-    padding-left: 12px;
-}
-
-.input-group, .color-picker-group, .skin-selector-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.input-group label, .color-picker-group label, .skin-selector-group label {
-    font-size: 12px;
-    font-family: var(--font-heading);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
-}
-
-.config-panel input[type="text"] {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 12px 16px;
-    border-radius: 4px;
-    color: #ffffff;
-    font-family: var(--font-body);
-    font-size: 15px;
-    transition: all 0.3s;
-}
-
-.config-panel input[type="text"]:focus {
-    border-color: var(--neon-green);
-    box-shadow: 0 0 10px rgba(0, 255, 102, 0.25);
-    outline: none;
-}
-
-.color-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-
-.color-btn {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: transform 0.2s, border-color 0.2s;
-}
-
-.color-btn:hover {
-    transform: scale(1.1);
-}
-
-.color-btn.active {
-    border-color: #ffffff;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
-}
-
-.custom-select {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 12px;
-    border-radius: 4px;
-    color: #ffffff;
-    font-family: var(--font-body);
-    font-size: 14px;
-    cursor: pointer;
-    outline: none;
-    transition: all 0.3s;
-    width: 100%;
-}
-
-.custom-select:focus {
-    border-color: var(--neon-cyan);
-}
-
-/* Customizer Preview Box */
-.preview-panel {
-    padding: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.jersey-preview {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 300px;
-    gap: 20px;
-}
-
-.nameplate {
-    background: rgba(0, 0, 0, 0.8);
-    border: 1.5px solid var(--player-color);
-    box-shadow: 0 0 15px var(--player-color);
-    padding: 6px 20px;
-    font-family: var(--font-heading);
-    font-size: 13px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    border-radius: 4px;
-    color: #ffffff;
-    min-width: 140px;
-    text-align: center;
-    transition: all 0.3s;
-}
-
-.player-svg-container {
-    width: 100%;
-    max-width: 200px;
-    height: auto;
-    aspect-ratio: 200/280;
-}
-
-/* SVG Fill Customizations */
-#player-jersey {
-    fill: var(--player-color);
-    transition: fill 0.3s ease;
-}
-
-#player-visor {
-    fill: var(--player-visor-color);
-    transition: fill 0.3s ease;
-}
-
-#player-armor {
-    fill: var(--player-color);
-    filter: brightness(0.85);
-    transition: fill 0.3s ease;
-}
-
-.custom-status {
-    font-family: var(--font-heading);
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.pulse-indicator {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: var(--neon-green);
-    box-shadow: var(--glow-green);
-    animation: blinkIndicator 1.5s infinite;
-}
 
 /* --- Roadmap / Devlog Section --- */
 .roadmap-timeline {
@@ -1342,78 +1181,79 @@ section {
     }
 }
 
-/* Tablet Landscape and Navigation Wrapping Breakpoint (Up to 992px) */
-@media (max-width: 992px) {
-    /* Header Overlay Navigation Menu on Mobile/Tablets */
-    .main-header {
-        height: 70px;
+/* Optimize desktop navbar for intermediate widths to prevent wrapping/overlap (1081px to 1250px) */
+@media (min-width: 1081px) and (max-width: 1250px) {
+    .site-nav {
+        max-width: 920px;
+        padding: 10px 20px;
     }
     
-    .header-container {
-        height: 100%;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        position: relative;
+    .site-nav__links {
+        gap: 12px;
+    }
+    
+    .nav-link {
+        font-size: 0.72rem;
+        letter-spacing: 0.05em;
+    }
+    
+    .lang-switch-wrapper {
+        padding-left: 10px;
+        margin-left: 0;
+    }
+    
+    .lang-btn {
+        padding: 4px 7px;
+        font-size: 10px;
+    }
+}
+
+/* Navigation menu media query (Up to 1080px) */
+@media (max-width: 1080px) {
+    /* Header Overlay Navigation Menu on Mobile/Tablets */
+    .site-nav {
+        flex-wrap: wrap;
+        border-radius: 24px;
+        transition: all 0.3s ease;
     }
     
     .menu-toggle {
         display: flex;
     }
     
-    /* Navigation Drawer overlay */
-    .main-nav {
-        position: fixed;
-        top: 70px;
-        left: -100%;
+    /* Navigation Drawer dropdown wrapper */
+    .site-nav__links {
+        display: none;
         width: 100%;
-        height: calc(100vh - 70px);
-        background: rgba(5, 7, 15, 0.98);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
-        transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 98;
-        padding: 40px 24px;
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px 0 10px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        margin-top: 12px;
+        align-items: center;
+        order: 3;
+    }
+    
+    .site-nav__links.active {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 40px;
-    }
-    
-    .main-nav.active {
-        left: 0;
-    }
-    
-    .main-nav ul {
-        flex-direction: column;
-        align-items: center;
-        gap: 24px;
-        width: 100%;
     }
     
     .nav-link {
-        font-size: 18px;
-        padding: 4px 0;
-    }
-    
-    /* Actions slideout overlay stacked below */
-    .header-actions {
-        position: fixed;
-        top: 360px; /* Stacks below menu list items */
-        left: -100%;
+        font-size: 14px;
+        padding: 8px 0;
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 24px;
-        transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 99;
-        padding: 0 24px;
+        text-align: center;
     }
     
-    .header-actions.active {
-        left: 0;
+    /* Make language switcher inside nav-links look good on mobile */
+    .lang-switch-wrapper {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-left: 0;
+        padding-top: 16px;
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
     }
     
     /* Animate Hamburger Bars into 'X' when active */
@@ -1426,7 +1266,10 @@ section {
     .menu-toggle.active span:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
     }
+}
 
+/* Tablet Landscape and Main Page Layout Wrapping Breakpoint (Up to 992px) */
+@media (max-width: 992px) {
     /* Page Layout wrapping rules */
     .hero-section {
         padding: 110px 0 60px 0;
@@ -1452,16 +1295,7 @@ section {
         margin: 0 auto;
     }
     
-    .customizer-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-        max-width: 600px;
-        margin: 0 auto;
-    }
-    
-    .preview-panel {
-        order: -1; /* Customizer preview on top on mobile */
-    }
+
     
     .footer-container {
         grid-template-columns: 1fr;
@@ -1561,18 +1395,7 @@ section {
         padding: 4px 0;
     }
     
-    .config-panel {
-        padding: 24px 16px;
-    }
-    
-    .color-options {
-        gap: 8px;
-    }
-    
-    .color-btn {
-        width: 32px;
-        height: 32px;
-    }
+
     
     .contact-box {
         padding: 24px 16px;
@@ -1757,6 +1580,94 @@ img {
     
     .legal-header__title {
         font-size: 24px;
+    }
+}
+
+/* --- Cookie / Privacy Consent Banner --- */
+.cookie-banner {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    width: calc(100% - 40px);
+    max-width: 760px;
+    background: rgba(10, 15, 30, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 255, 102, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 102, 0.05);
+    border-radius: 16px;
+    padding: 16px 24px;
+    z-index: 9999;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+    opacity: 1;
+}
+
+.cookie-banner.hidden {
+    display: none !important;
+}
+
+.cookie-banner.slide-out {
+    transform: translateX(-50%) translateY(100px);
+    opacity: 0;
+}
+
+.cookie-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.cookie-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.cookie-content p {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    flex: 1;
+    min-width: 280px;
+    line-height: 1.5;
+}
+
+.cookie-content p a {
+    color: var(--neon-green);
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.cookie-content p a:hover {
+    color: #ffffff;
+}
+
+.cookie-content button {
+    padding: 10px 20px;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 576px) {
+    .cookie-banner {
+        bottom: 15px;
+        padding: 16px;
+        border-radius: 12px;
+    }
+    
+    .cookie-content {
+        gap: 12px;
+    }
+    
+    .cookie-content p {
+        min-width: 100%;
+        font-size: 12px;
+    }
+    
+    .cookie-content button {
+        width: 100%;
     }
 }
 

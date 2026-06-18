@@ -9,6 +9,37 @@
     <link rel="icon" type="image/png" href="assets/zombiedrift_logo.png">
     <link rel="canonical" href="https://zombiedrift.github.io/">
     <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zombiedrift.github.io/">
+    <meta property="og:title" content="ZombieDrift Studio™ | Hockey Zombie Multiplayer™" id="og-title">
+    <meta property="og:description" content="Официальный сайт игровой студии ZombieDrift. Разработчики безумного спортивного экшена Hockey Zombie Multiplayer. Узнайте больше об игре, игровом процессе и технологиях." id="og-desc">
+    <meta property="og:image" content="https://zombiedrift.github.io/assets/zombiedrift_logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://zombiedrift.github.io/">
+    <meta property="twitter:title" content="ZombieDrift Studio™ | Hockey Zombie Multiplayer™" id="twitter-title">
+    <meta property="twitter:description" content="Официальный сайт игровой студии ZombieDrift. Разработчики безумного спортивного экшена Hockey Zombie Multiplayer. Узнайте больше об игре, игровом процессе и технологиях." id="twitter-desc">
+    <meta property="twitter:image" content="https://zombiedrift.github.io/assets/zombiedrift_logo.png">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "Hockey Zombie Multiplayer",
+      "description": "Безумный гибрид спортивного симулятора и кооперативного выживания в формате 1v1 PvP от ZombieDrift Studio.",
+      "genre": "Sports Action / Survival",
+      "platform": "PC",
+      "author": {
+        "@type": "Organization",
+        "name": "ZombieDrift Studio",
+        "url": "https://zombiedrift.github.io/"
+      }
+    }
+    </script>
     
     <link rel="stylesheet" href="style.css">
 </head>
@@ -40,6 +71,10 @@
                 <a href="#contact" class="nav-link" data-i18n="nav-contact">
                     <span class="nav-text-desktop">Контакты</span>
                     <span class="nav-text-mobile">📩</span>
+                </a>
+                <a href="privacy.html" class="nav-link" data-i18n="nav-privacy">
+                    <span class="nav-text-desktop">Конфиденциальность</span>
+                    <span class="nav-text-mobile">🔒</span>
                 </a>
 
                 <!-- Language Switcher inside nav links -->
@@ -135,7 +170,7 @@
                                 <div class="card-accent accent-attack"></div>
                                 <div class="card-glow"></div>
                                 <h4 class="card-type" data-i18n="card-att-title">АТАКА</h4>
-                                <div class="card-icon-illustration">⚔️</div>
+                                <div class="card-icon-illustration"><img src="icons8-sword-50.png" alt="Attack"></div>
                                 <p class="card-benefit" data-i18n="card-att-benefit">Побеждает Контроль<br><small>+25% Сила удара</small></p>
                             </div>
                         </div>
@@ -145,7 +180,7 @@
                                 <div class="card-accent accent-control"></div>
                                 <div class="card-glow"></div>
                                 <h4 class="card-type" data-i18n="card-ctrl-title">КОНТРОЛЬ</h4>
-                                <div class="card-icon-illustration">🛡️</div>
+                                <div class="card-icon-illustration"><img src="icons8-brain-64.png" alt="Control"></div>
                                 <p class="card-benefit" data-i18n="card-ctrl-benefit">Побеждает Защиту<br><small>+20% Скорость бега</small></p>
                             </div>
                         </div>
@@ -155,7 +190,7 @@
                                 <div class="card-accent accent-defense"></div>
                                 <div class="card-glow"></div>
                                 <h4 class="card-type" data-i18n="card-def-title">ЗАЩИТА</h4>
-                                <div class="card-icon-illustration">🧱</div>
+                                <div class="card-icon-illustration"><img src="icons8-shield-50.png" alt="Defense"></div>
                                 <p class="card-benefit" data-i18n="card-def-benefit">Побеждает Атаку<br><small>+30% Здоровье ботов</small></p>
                             </div>
                         </div>
@@ -295,6 +330,15 @@
             </div>
         </div>
     </footer>
+
+    <!-- Privacy/Cookie Consent Banner -->
+    <div id="cookie-banner" class="cookie-banner hidden">
+        <div class="cookie-content">
+            <span class="cookie-icon">🔒</span>
+            <p id="cookie-text-content" data-i18n="cookie-text">Этот сайт использует файлы cookie и локальное хранилище для улучшения вашего игрового опыта. Подробнее в нашей <a href="privacy.html">Политике конфиденциальности</a>.</p>
+            <button id="btn-cookie-accept" class="btn btn-primary" data-i18n="btn-cookie-accept">Принять</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

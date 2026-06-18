@@ -95,14 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
        2. MOBILE HAMBURGER MENU TOGGLE
        ========================================== */
     const menuToggle = document.getElementById('menu-toggle');
-    const mainNav = document.getElementById('main-nav');
-    const headerActions = document.getElementById('header-actions');
+    const mainNav = document.getElementById('nav-links');
     
-    if (menuToggle) {
+    if (menuToggle && mainNav) {
         menuToggle.addEventListener('click', () => {
             menuToggle.classList.toggle('active');
             mainNav.classList.toggle('active');
-            headerActions.classList.toggle('active');
         });
         
         // Close menu when clicking nav links
@@ -111,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
             link.addEventListener('click', () => {
                 menuToggle.classList.remove('active');
                 mainNav.classList.remove('active');
-                headerActions.classList.remove('active');
             });
         });
     }
@@ -123,11 +120,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const translations = {
         ru: {
             "doc-title": "ZombieDrift Studio | Hockey Zombie Multiplayer",
-            "nav-about": "Об игре",
-            "nav-chess": "Шахматная фаза",
-            "nav-skins": "Скины",
+            "meta-desc": "Официальный сайт игровой студии ZombieDrift. Разработчики безумного спортивного экшена Hockey Zombie Multiplayer. Узнайте больше об игре, игровом процессе и технологиях.",
+            "meta-key": "ZombieDrift, Hockey Zombie, Hockey Zombie Multiplayer, PurrNet, Zero-GC, Unity, 1v1 PvP, инди-игры",
+            "nav-privacy": "Конфиденциальность",
             "nav-roadmap": "Дорожная карта",
             "nav-contact": "Контакты",
+            "nav-about": "<span class=\"nav-text-desktop\">Об игре</span><span class=\"nav-text-mobile\">Игра</span>",
+            "nav-chess": "<span class=\"nav-text-desktop\">Шахматная фаза</span><span class=\"nav-text-mobile\">Chess</span>",
             "btn-join": "Вступить в бой",
             "hero-tag": "Свежий релиз от ZombieDrift",
             "hero-title": "HOCKEY ZOMBIE<br><span class=\"highlight-text\">MULTIPLAYER</span>",
@@ -159,17 +158,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "sim-your-choice": "Ваш выбор",
             "sim-opp-choice": "Выбор Соперника",
             "sim-start-prompt": "Выберите карту выше, чтобы начать...",
-            "cust-tag": "Кастомизация",
-            "cust-title": "НАСТРОЙКА ХОККЕИСТА",
-            "cust-subtitle": "Создайте свой стиль на арене. Никнейм и цвета экипировки мгновенно синхронизируются через сеть PurrNet.",
-            "cust-panel-title": "Панель раздевалки",
-            "cust-label-nick": "Имя хоккеиста (Никнейм)",
-            "cust-label-color": "Цвет команды (SyncVar)",
-            "cust-label-gear": "Экипировка (SkinIndex)",
-            "cust-opt-jersey": "Стандартный джерси (Jersey Retro)",
-            "cust-opt-armor": "Кибер-защита (Cyber Armor)",
-            "cust-opt-surv": "Выживший хоккеист (Wasteland Survivor)",
-            "cust-sync-status": "СИНХРОНИЗИРОВАНО С СЕРВЕРОМ",
+            "cookie-text": "Этот сайт использует файлы cookie и локальное хранилище для улучшения вашего игрового опыта. Подробнее в нашей <a href=\"privacy.html\">Политике конфиденциальности</a>.",
+            "btn-cookie-accept": "Принять",
             "road-tag": "Развитие",
             "road-title": "ДОРОЖНАЯ КАРТА ПРОЕКТА",
             "road-subtitle": "Следите за прогрессом разработки Hockey Zombie Multiplayer. Мы постоянно улучшаем код и добавляем новые возможности.",
@@ -200,8 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "legal-toast-msg": "Защита ИС: Копирование материалов и исходного кода запрещено.",
             // Simulator strings
             "choice-att": "⚔️ АТАКА",
-            "choice-ctrl": "🛡️ КОНТРОЛЬ",
-            "choice-def": "🧱 ЗАХИСТ",
+            "choice-ctrl": "🧠 КОНТРОЛЬ",
+            "choice-def": "🛡️ ЗАЩИТА",
             "sim-choosing": "ВЫБОР...",
             "res-tie-title": "НИЧЬЯ В ШАХМАТНОЙ ФАЗЕ!",
             "res-tie-desc": "Оба выбрали {choice}. Ваши боты не получили баффов. Период начнется в равных условиях!",
@@ -217,11 +207,13 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         en: {
             "doc-title": "ZombieDrift Studio | Hockey Zombie Multiplayer",
-            "nav-about": "About Game",
-            "nav-chess": "Chess Phase",
-            "nav-skins": "Skins",
+            "meta-desc": "Official website of ZombieDrift game studio. Developers of the crazy sports action game Hockey Zombie Multiplayer. Find out more about the game, gameplay, and technologies.",
+            "meta-key": "ZombieDrift, Hockey Zombie, Hockey Zombie Multiplayer, PurrNet, Zero-GC, Unity, 1v1 PvP, indie games",
+            "nav-privacy": "Privacy",
             "nav-roadmap": "Roadmap",
             "nav-contact": "Contact",
+            "nav-about": "<span class=\"nav-text-desktop\">About Game</span><span class=\"nav-text-mobile\">Game</span>",
+            "nav-chess": "<span class=\"nav-text-desktop\">Chess Phase</span><span class=\"nav-text-mobile\">Chess</span>",
             "btn-join": "Enter Battle",
             "hero-tag": "Fresh Release from ZombieDrift",
             "hero-title": "HOCKEY ZOMBIE<br><span class=\"highlight-text\">MULTIPLAYER</span>",
@@ -253,17 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "sim-your-choice": "Your Choice",
             "sim-opp-choice": "Opponent Choice",
             "sim-start-prompt": "Choose a card above to start...",
-            "cust-tag": "Customization",
-            "cust-title": "HOCKEY PLAYER SETUP",
-            "cust-subtitle": "Create your style on the arena. Nicknames and gear colors sync instantly via the PurrNet network.",
-            "cust-panel-title": "Locker Room Panel",
-            "cust-label-nick": "Player Nickname",
-            "cust-label-color": "Team Color (SyncVar)",
-            "cust-label-gear": "Gear Gearbox (SkinIndex)",
-            "cust-opt-jersey": "Default Jersey (Jersey Retro)",
-            "cust-opt-armor": "Cyber Protection (Cyber Armor)",
-            "cust-opt-surv": "Wasteland Survivor",
-            "cust-sync-status": "SYNCHRONIZED WITH SERVER",
+            "cookie-text": "This site uses cookies and local storage to improve your gaming experience. Read more in our <a href=\"privacy.html\">Privacy Policy</a>.",
+            "btn-cookie-accept": "Accept",
             "road-tag": "Development",
             "road-title": "PROJECT ROADMAP",
             "road-subtitle": "Follow the development progress of Hockey Zombie Multiplayer. We continuously optimize the code and add new features.",
@@ -294,8 +277,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "legal-toast-msg": "IP Protection: Copying assets and source code is prohibited.",
             // Simulator strings
             "choice-att": "⚔️ ATTACK",
-            "choice-ctrl": "🛡️ CONTROL",
-            "choice-def": "🧱 DEFENSE",
+            "choice-ctrl": "🧠 CONTROL",
+            "choice-def": "🛡️ DEFENSE",
             "sim-choosing": "CHOOSING...",
             "res-tie-title": "CHESS PHASE TIE!",
             "res-tie-desc": "Both selected {choice}. Your bots did not get any buffs. The period starts on equal ground!",
@@ -311,11 +294,13 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         ua: {
             "doc-title": "ZombieDrift Studio | Hockey Zombie Multiplayer",
-            "nav-about": "Про гру",
-            "nav-chess": "Шахова фаза",
-            "nav-skins": "Скіни",
+            "meta-desc": "Офіційний сайт ігрової студії ZombieDrift. Розробники божевільного спортивного екшену Hockey Zombie Multiplayer. Дізнайтеся більше про гру, ігровий процес та технології.",
+            "meta-key": "ZombieDrift, Hockey Zombie, Hockey Zombie Multiplayer, PurrNet, Zero-GC, Unity, 1v1 PvP, інді-ігри",
+            "nav-privacy": "Конфіденційність",
             "nav-roadmap": "Дорожня карта",
             "nav-contact": "Контакти",
+            "nav-about": "<span class=\"nav-text-desktop\">Про гру</span><span class=\"nav-text-mobile\">Гра</span>",
+            "nav-chess": "<span class=\"nav-text-desktop\">Шахова фаза</span><span class=\"nav-text-mobile\">Шахи</span>",
             "btn-join": "Вступить в бій",
             "hero-tag": "Свіжий реліз від ZombieDrift",
             "hero-title": "HOCKEY ZOMBIE<br><span class=\"highlight-text\">MULTIPLAYER</span>",
@@ -347,17 +332,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "sim-your-choice": "Ваш вибір",
             "sim-opp-choice": "Вибір Суперника",
             "sim-start-prompt": "Оберіть карту вище, щоб почати...",
-            "cust-tag": "Кастомізація",
-            "cust-title": "НАЛАШТУВАННЯ ХОКЕЇСТА",
-            "cust-subtitle": "Створіть свій стиль на арені. Нікнейм та кольори екіпірування миттєво синхронізуються через мережу PurrNet.",
-            "cust-panel-title": "Панель роздягальні",
-            "cust-label-nick": "Ім'я хокеїста (Нікнейм)",
-            "cust-label-color": "Колір команди (SyncVar)",
-            "cust-label-gear": "Екіпірування (SkinIndex)",
-            "cust-opt-jersey": "Стандартний джерсі (Jersey Retro)",
-            "cust-opt-armor": "Кібер-захист (Cyber Armor)",
-            "cust-opt-surv": "Вцілілий хокеїст (Wasteland Survivor)",
-            "cust-sync-status": "СИНХРОНІЗОВАНО З СЕРВЕРОМ",
+            "cookie-text": "Цей сайт використовує файли cookie та локальне збереження для покращення вашого ігрового досвіду. Детальніше у нашій <a href=\"privacy.html\">Політиці конфіденційності</a>.",
+            "btn-cookie-accept": "Прийняти",
             "road-tag": "Розвиток",
             "road-title": "ДОРОЖНЯ КАРТА ПРОЕКТА",
             "road-subtitle": "Слідкуйте за прогресом розробки Hockey Zombie Multiplayer. Ми постійно покращуємо код та додаємо нові можливості.",
@@ -388,8 +364,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "legal-toast-msg": "Захист ІВ: Копіювання матеріалів та вихідного коду заборонено.",
             // Simulator strings
             "choice-att": "⚔️ АТАКА",
-            "choice-ctrl": "🛡️ КОНТРОЛЬ",
-            "choice-def": "🧱 ЗАХИСТ",
+            "choice-ctrl": "🧠 КОНТРОЛЬ",
+            "choice-def": "🛡️ ЗАХИСТ",
             "sim-choosing": "ВИБІР...",
             "res-tie-title": "НІЧИЯ У ШАХОВІЙ ФАЗІ!",
             "res-tie-desc": "Обидва обрали {choice}. Ваші боти не отримали баффів. Період почнеться в рівних умовах!",
@@ -425,23 +401,50 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
+
+        // Update meta tags for SEO
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc && translations[lang]['meta-desc']) {
+            metaDesc.setAttribute('content', translations[lang]['meta-desc']);
+        }
+        const metaKeywords = document.querySelector('meta[name="keywords"]');
+        if (metaKeywords && translations[lang]['meta-key']) {
+            metaKeywords.setAttribute('content', translations[lang]['meta-key']);
+        }
+
+        // Update Open Graph and Twitter Card meta tags for SEO / Social Sharing
+        const ogTitle = document.getElementById('og-title');
+        const ogDesc = document.getElementById('og-desc');
+        const twitterTitle = document.getElementById('twitter-title');
+        const twitterDesc = document.getElementById('twitter-desc');
         
-        const nickInput = document.getElementById('custom-nickname');
+        if (ogTitle && translations[lang]['doc-title']) ogTitle.setAttribute('content', translations[lang]['doc-title']);
+        if (ogDesc && translations[lang]['meta-desc']) ogDesc.setAttribute('content', translations[lang]['meta-desc']);
+        if (twitterTitle && translations[lang]['doc-title']) twitterTitle.setAttribute('content', translations[lang]['doc-title']);
+        if (twitterDesc && translations[lang]['meta-desc']) twitterDesc.setAttribute('content', translations[lang]['meta-desc']);
+        
         const nameInput = document.getElementById('form-name');
         const msgTextarea = document.getElementById('form-message');
         
-        if (lang === 'en') {
-            nickInput.placeholder = "Enter nickname";
-            nameInput.placeholder = "Max";
-            msgTextarea.placeholder = "Tell us your ideas on improving zombie physics or network code...";
-        } else if (lang === 'ua') {
-            nickInput.placeholder = "Введіть нікнейм";
-            nameInput.placeholder = "Максим";
-            msgTextarea.placeholder = "Розкажіть нам про ваші ідеї щодо покращення фізики зомбі або мережевого коду...";
-        } else {
-            nickInput.placeholder = "Введите никнейм";
-            nameInput.placeholder = "Максим";
-            msgTextarea.placeholder = "Расскажите нам о ваших идеях по улучшению физики зомби или сетевого кода...";
+        if (nameInput && msgTextarea) {
+            if (lang === 'en') {
+                nameInput.placeholder = "Max";
+                msgTextarea.placeholder = "Tell us your ideas on improving zombie physics or network code...";
+            } else if (lang === 'ua') {
+                nameInput.placeholder = "Максим";
+                msgTextarea.placeholder = "Розкажіть нам про ваші ідеї щодо покращення фізики зомбі або мережевого коду...";
+            } else {
+                nameInput.placeholder = "Максим";
+                msgTextarea.placeholder = "Расскажите нам о ваших идеях по улучшению физики зомби или сетевого кода...";
+            }
+        }
+
+        // Also update cookie banner placeholders if visible
+        const cookieTextElem = document.getElementById('cookie-text-content');
+        const cookieBtnElem = document.getElementById('btn-cookie-accept');
+        if (cookieTextElem && cookieBtnElem) {
+            cookieTextElem.innerHTML = translations[lang]['cookie-text'];
+            cookieBtnElem.textContent = translations[lang]['btn-cookie-accept'];
         }
         
         localStorage.setItem('zombiedrift_lang', lang);
@@ -603,63 +606,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    /* ==========================================
-       5. INTERACTIVE PLAYER CUSTOMIZER
-       ========================================== */
-    const nicknameInput = document.getElementById('custom-nickname');
-    const nameplate = document.getElementById('player-nameplate');
-    const colorBtns = document.querySelectorAll('.color-btn');
-    const skinSelect = document.getElementById('skin-index-select');
-    const playerNumber = document.getElementById('player-number');
-    const root = document.documentElement;
-    
-    nicknameInput.addEventListener('input', (e) => {
-        let value = e.target.value.trim();
-        if (value === '') {
-            nameplate.textContent = 'ZombieKicker';
-        } else {
-            nameplate.textContent = value;
-        }
-        
-        const charSum = value.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-        const calcNumber = (charSum % 99) + 1;
-        playerNumber.textContent = calcNumber;
-    });
-    
-    colorBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            colorBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            const selectedColor = btn.getAttribute('data-color');
-            root.style.setProperty('--player-color', selectedColor);
-            
-            if (selectedColor === '#00ff66') {
-                root.style.setProperty('--player-visor-color', '#00ff66');
-            } else if (selectedColor === '#00d2ff') {
-                root.style.setProperty('--player-visor-color', '#ffcc00');
-            } else {
-                root.style.setProperty('--player-visor-color', '#00ff66');
-            }
-        });
-    });
-    
-    skinSelect.addEventListener('change', (e) => {
-        const value = e.target.value;
-        const playerJersey = document.getElementById('player-jersey');
-        const playerArmor = document.getElementById('player-armor');
-        
-        if (value === '0') {
-            playerJersey.setAttribute('rx', '5');
-            playerArmor.setAttribute('d', 'M 50,90 Q 100,70 150,90 L 160,115 L 40,115 Z');
-        } else if (value === '1') {
-            playerJersey.setAttribute('rx', '15');
-            playerArmor.setAttribute('d', 'M 45,90 Q 100,60 155,90 L 168,115 L 32,115 Z');
-        } else if (value === '2') {
-            playerJersey.setAttribute('rx', '0');
-            playerArmor.setAttribute('d', 'M 52,90 Q 100,80 148,90 L 158,115 L 42,115 Z');
-        }
-    });
+
 
 
     /* ==========================================
@@ -737,5 +684,35 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast();
         }
     });
+
+    /* ==========================================
+       8. PRIVACY / COOKIE CONSENT BANNER
+       ========================================== */
+    const cookieBanner = document.getElementById('cookie-banner');
+    const btnCookieAccept = document.getElementById('btn-cookie-accept');
+    
+    if (cookieBanner && btnCookieAccept) {
+        // Check if user has already accepted
+        const consent = localStorage.getItem('zombiedrift_cookie_consent');
+        if (!consent) {
+            // Show banner with a small delay for a smooth introduction
+            setTimeout(() => {
+                cookieBanner.classList.remove('hidden');
+            }, 1000);
+        }
+        
+        btnCookieAccept.addEventListener('click', () => {
+            // Add slide-out class for transition
+            cookieBanner.classList.add('slide-out');
+            
+            // Set item in localStorage
+            localStorage.setItem('zombiedrift_cookie_consent', 'true');
+            
+            // Remove completely after transition animation
+            setTimeout(() => {
+                cookieBanner.classList.add('hidden');
+            }, 400);
+        });
+    }
 });
 

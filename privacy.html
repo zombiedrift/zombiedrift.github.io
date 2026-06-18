@@ -8,6 +8,20 @@
     <link rel="icon" type="image/png" href="assets/zombiedrift_logo.png">
     <link rel="canonical" href="https://zombiedrift.github.io/privacy.html">
     <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zombiedrift.github.io/privacy.html">
+    <meta property="og:title" content="ZombieDrift Studio | Privacy Policy & IP Protection" id="og-title">
+    <meta property="og:description" content="Политика конфиденциальности и защита интеллектуальной собственности Hockey Zombie Multiplayer от ZombieDrift Studio." id="og-desc">
+    <meta property="og:image" content="https://zombiedrift.github.io/assets/zombiedrift_logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://zombiedrift.github.io/privacy.html">
+    <meta property="twitter:title" content="ZombieDrift Studio | Privacy Policy & IP Protection" id="twitter-title">
+    <meta property="twitter:description" content="Политика конфиденциальности и защита интеллектуальной собственности Hockey Zombie Multiplayer от ZombieDrift Studio." id="twitter-desc">
+    <meta property="twitter:image" content="https://zombiedrift.github.io/assets/zombiedrift_logo.png">
     
     <link rel="stylesheet" href="style.css">
 </head>
@@ -149,6 +163,18 @@
             const buttons = document.querySelectorAll('.lang-btn');
             const langMap = { ru: 'ru', en: 'en', ua: 'uk' };
             
+            const pageTitles = {
+                ru: "ZombieDrift Studio | Политика конфиденциальности и защита ИС",
+                en: "ZombieDrift Studio | Privacy Policy & IP Protection",
+                ua: "ZombieDrift Studio | Політика конфіденційності та захист ІВ"
+            };
+            
+            const pageDescriptions = {
+                ru: "Политика конфиденциальности и защита интеллектуальной собственности Hockey Zombie Multiplayer от ZombieDrift Studio.",
+                en: "Privacy Policy and Intellectual Property Protection of Hockey Zombie Multiplayer by ZombieDrift Studio.",
+                ua: "Політика конфіденційності та захист інтелектуальної власності Hockey Zombie Multiplayer від ZombieDrift Studio."
+            };
+
             function switchLang(lang) {
                 // Update html lang attribute
                 document.documentElement.setAttribute('lang', langMap[lang] || lang);
@@ -156,11 +182,31 @@
                 // Show/hide content blocks
                 document.querySelectorAll('[data-lang-content]').forEach(elem => {
                     if (elem.getAttribute('data-lang-content') === lang) {
-                        elem.style.display = 'block';
+                        elem.style.display = elem.tagName === 'SPAN' ? 'inline' : 'block';
                     } else {
                         elem.style.display = 'none';
                     }
                 });
+                
+                // Update title & meta tags for SEO
+                if (pageTitles[lang]) {
+                    document.title = pageTitles[lang];
+                }
+                const metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc && pageDescriptions[lang]) {
+                    metaDesc.setAttribute('content', pageDescriptions[lang]);
+                }
+                
+                // Update Open Graph and Twitter Card meta tags for SEO / Social Sharing
+                const ogTitle = document.getElementById('og-title');
+                const ogDesc = document.getElementById('og-desc');
+                const twitterTitle = document.getElementById('twitter-title');
+                const twitterDesc = document.getElementById('twitter-desc');
+                
+                if (ogTitle) ogTitle.setAttribute('content', pageTitles[lang]);
+                if (ogDesc) ogDesc.setAttribute('content', pageDescriptions[lang]);
+                if (twitterTitle) twitterTitle.setAttribute('content', pageTitles[lang]);
+                if (twitterDesc) twitterDesc.setAttribute('content', pageDescriptions[lang]);
                 
                 // Save to localStorage
                 localStorage.setItem('zombiedrift_lang', lang);
