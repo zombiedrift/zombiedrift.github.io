@@ -8,87 +8,89 @@ document.addEventListener('DOMContentLoaded', () => {
        1. BACKGROUND CANVAS PARTICLE EFFECT
        ========================================== */
     const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    
-    let particlesArray = [];
-    const colors = [
-        'rgba(0, 255, 102, 0.15)', // Neon Green
-        'rgba(0, 210, 255, 0.12)', // Neon Cyan
-        'rgba(189, 0, 255, 0.08)'  // Neon Magenta
-    ];
-    
-    function setCanvasSize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    setCanvasSize();
-    window.addEventListener('resize', setCanvasSize);
-    
-    class Particle {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 4 + 1;
-            this.speedX = Math.random() * 0.4 - 0.2;
-            this.speedY = Math.random() * 0.4 - 0.2;
-            this.color = colors[Math.floor(Math.random() * colors.length)];
-        }
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
         
-        update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
+        let particlesArray = [];
+        const colors = [
+            'rgba(0, 255, 102, 0.15)', // Neon Green
+            'rgba(0, 210, 255, 0.12)', // Neon Cyan
+            'rgba(189, 0, 255, 0.08)'  // Neon Magenta
+        ];
+        
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        setCanvasSize();
+        window.addEventListener('resize', setCanvasSize);
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 4 + 1;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * 0.4 - 0.2;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
             
-            if (this.x > canvas.width) this.x = 0;
-            else if (this.x < 0) this.x = canvas.width;
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                if (this.x > canvas.width) this.x = 0;
+                else if (this.x < 0) this.x = canvas.width;
+                
+                if (this.y > canvas.height) this.y = 0;
+                else if (this.y < 0) this.y = canvas.height;
+            }
             
-            if (this.y > canvas.height) this.y = 0;
-            else if (this.y < 0) this.y = canvas.height;
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
         
-        draw() {
-            ctx.fillStyle = this.color;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
+        function initParticles() {
+            particlesArray = [];
+            const numberOfParticles = Math.floor((canvas.width * canvas.height) / 15000);
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
         }
-    }
-    
-    function initParticles() {
-        particlesArray = [];
-        const numberOfParticles = Math.floor((canvas.width * canvas.height) / 15000);
-        for (let i = 0; i < numberOfParticles; i++) {
-            particlesArray.push(new Particle());
-        }
-    }
-    initParticles();
-    window.addEventListener('resize', initParticles);
-    
-    function animateParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        initParticles();
+        window.addEventListener('resize', initParticles);
         
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.01)';
-        ctx.lineWidth = 1;
-        const gridSize = 80;
-        for (let x = 0; x < canvas.width; x += gridSize) {
-            ctx.beginPath();
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, canvas.height);
-            ctx.stroke();
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.01)';
+            ctx.lineWidth = 1;
+            const gridSize = 80;
+            for (let x = 0; x < canvas.width; x += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            for (let y = 0; y < canvas.height; y += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+            
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
         }
-        for (let y = 0; y < canvas.height; y += gridSize) {
-            ctx.beginPath();
-            ctx.moveTo(0, y);
-            ctx.lineTo(canvas.width, y);
-            ctx.stroke();
-        }
-        
-        for (let i = 0; i < particlesArray.length; i++) {
-            particlesArray[i].update();
-            particlesArray[i].draw();
-        }
-        requestAnimationFrame(animateParticles);
+        animateParticles();
     }
-    animateParticles();
 
 
     /* ==========================================
@@ -122,11 +124,11 @@ document.addEventListener('DOMContentLoaded', () => {
             "doc-title": "ZombieDrift Studio | Hockey Zombie Multiplayer",
             "meta-desc": "Официальный сайт игровой студии ZombieDrift. Разработчики безумного спортивного экшена Hockey Zombie Multiplayer. Узнайте больше об игре, игровом процессе и технологиях.",
             "meta-key": "ZombieDrift, Hockey Zombie, Hockey Zombie Multiplayer, PurrNet, Zero-GC, Unity, 1v1 PvP, инди-игры",
-            "nav-privacy": "Конфиденциальность",
+            "nav-privacy": "Приватность",
             "nav-roadmap": "Дорожная карта",
             "nav-contact": "Контакты",
             "nav-about": "<span class=\"nav-text-desktop\">Об игре</span><span class=\"nav-text-mobile\">Игра</span>",
-            "nav-chess": "<span class=\"nav-text-desktop\">Шахматная фаза</span><span class=\"nav-text-mobile\">Chess</span>",
+            "nav-chess": "<span class=\"nav-text-desktop\">Шахматы</span><span class=\"nav-text-mobile\">Chess</span>",
             "btn-join": "Вступить в бой",
             "hero-tag": "Свежий релиз от ZombieDrift",
             "hero-title": "HOCKEY ZOMBIE<br><span class=\"highlight-text\">MULTIPLAYER</span>",
@@ -296,11 +298,11 @@ document.addEventListener('DOMContentLoaded', () => {
             "doc-title": "ZombieDrift Studio | Hockey Zombie Multiplayer",
             "meta-desc": "Офіційний сайт ігрової студії ZombieDrift. Розробники божевільного спортивного екшену Hockey Zombie Multiplayer. Дізнайтеся більше про гру, ігровий процес та технології.",
             "meta-key": "ZombieDrift, Hockey Zombie, Hockey Zombie Multiplayer, PurrNet, Zero-GC, Unity, 1v1 PvP, інді-ігри",
-            "nav-privacy": "Конфіденційність",
+            "nav-privacy": "Приватність",
             "nav-roadmap": "Дорожня карта",
             "nav-contact": "Контакти",
             "nav-about": "<span class=\"nav-text-desktop\">Про гру</span><span class=\"nav-text-mobile\">Гра</span>",
-            "nav-chess": "<span class=\"nav-text-desktop\">Шахова фаза</span><span class=\"nav-text-mobile\">Шахи</span>",
+            "nav-chess": "<span class=\"nav-text-desktop\">Шахи</span><span class=\"nav-text-mobile\">Шахи</span>",
             "btn-join": "Вступить в бій",
             "hero-tag": "Свіжий реліз від ZombieDrift",
             "hero-title": "HOCKEY ZOMBIE<br><span class=\"highlight-text\">MULTIPLAYER</span>",
@@ -446,10 +448,46 @@ document.addEventListener('DOMContentLoaded', () => {
             cookieTextElem.innerHTML = translations[lang]['cookie-text'];
             cookieBtnElem.textContent = translations[lang]['btn-cookie-accept'];
         }
+
+        // Update elements with data-lang-content (used in privacy.html)
+        document.querySelectorAll('[data-lang-content]').forEach(elem => {
+            if (elem.getAttribute('data-lang-content') === lang) {
+                elem.style.display = elem.tagName === 'SPAN' ? 'inline' : 'block';
+            } else {
+                elem.style.display = 'none';
+            }
+        });
+
+        // Specific routing for privacy page title and metadata
+        const isLegalPage = document.body.classList.contains('legal-body');
+        if (isLegalPage) {
+            const pageTitlesRU = {
+                ru: "ZombieDrift Studio | Политика конфиденциальности и защита ИС",
+                en: "ZombieDrift Studio | Privacy Policy & IP Protection",
+                ua: "ZombieDrift Studio | Політика конфіденційності та захист ІВ"
+            };
+            const pageDescriptions = {
+                ru: "Политика конфиденциальности и защита интеллектуальной собственности Hockey Zombie Multiplayer от ZombieDrift Studio.",
+                en: "Privacy Policy and Intellectual Property Protection of Hockey Zombie Multiplayer by ZombieDrift Studio.",
+                ua: "Політика конфіденційності та захист інтелектуальної власності Hockey Zombie Multiplayer від ZombieDrift Studio."
+            };
+            
+            const titleText = pageTitlesRU[lang] || pageTitlesRU['en'];
+            document.title = titleText;
+            
+            if (metaDesc && pageDescriptions[lang]) {
+                metaDesc.setAttribute('content', pageDescriptions[lang]);
+            }
+            if (ogTitle) ogTitle.setAttribute('content', titleText);
+            if (ogDesc && pageDescriptions[lang]) ogDesc.setAttribute('content', pageDescriptions[lang]);
+            if (twitterTitle) twitterTitle.setAttribute('content', titleText);
+            if (twitterDesc && pageDescriptions[lang]) twitterDesc.setAttribute('content', pageDescriptions[lang]);
+        }
         
         localStorage.setItem('zombiedrift_lang', lang);
 
-        if (playerChoice === null) {
+        const screenResult = document.getElementById('screen-result-text');
+        if (playerChoice === null && screenResult) {
             screenResult.textContent = translations[lang]['sim-start-prompt'];
         }
     }
@@ -464,11 +502,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Load saved language on start
-    const savedLang = localStorage.getItem('zombiedrift_lang');
-    if (savedLang && savedLang !== 'ru') {
-        const btn = document.querySelector(`.lang-btn[data-lang="${savedLang}"]`);
-        if (btn) btn.click();
+    // Load saved language on start or detect from browser/URL
+    const urlParams = new URLSearchParams(window.location.search);
+    let startLang = localStorage.getItem('zombiedrift_lang') || urlParams.get('lang');
+    
+    if (!startLang) {
+        const browserLang = navigator.language || navigator.userLanguage;
+        if (browserLang) {
+            if (browserLang.startsWith('uk') || browserLang.startsWith('uk-') || browserLang.includes('ua')) {
+                startLang = 'ua';
+            } else if (browserLang.startsWith('en')) {
+                startLang = 'en';
+            } else {
+                startLang = 'ru';
+            }
+        } else {
+            startLang = 'ru';
+        }
+    }
+    
+    // Set active language button state and apply language
+    const defaultBtn = document.querySelector(`.lang-btn[data-lang="${startLang}"]`);
+    if (defaultBtn) {
+        defaultBtn.click();
+    } else {
+        setLanguage('ru');
     }
 
 
@@ -491,119 +549,121 @@ document.addEventListener('DOMContentLoaded', () => {
         defense: '#00ff66'  // Green
     };
 
-    chessCards.forEach(card => {
-        card.addEventListener('click', () => {
-            if (btnReveal.classList.contains('btn-disabled') === false && playerChoice !== null) {
-                if (btnReset.classList.contains('btn-hidden') === false) return;
-            }
-            
-            chessCards.forEach(c => c.classList.remove('selected'));
-            card.classList.add('selected');
-            playerChoice = card.getAttribute('data-card');
-            
-            btnReveal.classList.remove('btn-disabled');
-            btnReveal.removeAttribute('disabled');
-            
-            const translationKey = `choice-${playerChoice.substring(0, 4)}`;
-            slotPlayer.textContent = translations[currentLang][translationKey];
-            slotPlayer.style.borderColor = choiceColors[playerChoice];
-            slotPlayer.style.boxShadow = `0 0 10px ${choiceColors[playerChoice]}`;
-            
-            if (currentLang === 'en') {
-                screenResult.textContent = 'Card selected. Press "Reveal Cards" to run simulation.';
-            } else if (currentLang === 'ua') {
-                screenResult.textContent = 'Карту обрано. Натисніть "Розкрити карти" для симуляції періоду.';
-            } else {
-                screenResult.textContent = 'Карта выбрана. Нажмите "Раскрыть карты" для симуляции периода.';
-            }
+    if (chessCards.length > 0 && btnReveal && btnReset && slotPlayer && slotOpponent && screenResult) {
+        chessCards.forEach(card => {
+            card.addEventListener('click', () => {
+                if (btnReveal.classList.contains('btn-disabled') === false && playerChoice !== null) {
+                    if (btnReset.classList.contains('btn-hidden') === false) return;
+                }
+                
+                chessCards.forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                playerChoice = card.getAttribute('data-card');
+                
+                btnReveal.classList.remove('btn-disabled');
+                btnReveal.removeAttribute('disabled');
+                
+                const translationKey = `choice-${playerChoice.substring(0, 4)}`;
+                slotPlayer.textContent = translations[currentLang][translationKey];
+                slotPlayer.style.borderColor = choiceColors[playerChoice];
+                slotPlayer.style.boxShadow = `0 0 10px ${choiceColors[playerChoice]}`;
+                
+                if (currentLang === 'en') {
+                    screenResult.textContent = 'Card selected. Press "Reveal Cards" to run simulation.';
+                } else if (currentLang === 'ua') {
+                    screenResult.textContent = 'Карту обрано. Натисніть "Розкрити карти" для симуляції періоду.';
+                } else {
+                    screenResult.textContent = 'Карта выбрана. Нажмите "Раскрыть карты" для симуляции периода.';
+                }
+            });
         });
-    });
 
-    btnReveal.addEventListener('click', () => {
-        if (!playerChoice) return;
-        
-        btnReveal.classList.add('btn-hidden');
-        
-        slotOpponent.textContent = translations[currentLang]['sim-choosing'];
-        slotOpponent.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-        slotOpponent.style.boxShadow = 'none';
-        
-        let blinkCount = 0;
-        const interval = setInterval(() => {
-            const tempChoice = choices[Math.floor(Math.random() * choices.length)];
-            const translationKey = `choice-${tempChoice.substring(0, 4)}`;
-            slotOpponent.textContent = translations[currentLang][translationKey];
-            blinkCount++;
+        btnReveal.addEventListener('click', () => {
+            if (!playerChoice) return;
             
-            if (blinkCount > 8) {
-                clearInterval(interval);
+            btnReveal.classList.add('btn-hidden');
+            
+            slotOpponent.textContent = translations[currentLang]['sim-choosing'];
+            slotOpponent.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+            slotOpponent.style.boxShadow = 'none';
+            
+            let blinkCount = 0;
+            const interval = setInterval(() => {
+                const tempChoice = choices[Math.floor(Math.random() * choices.length)];
+                const translationKey = `choice-${tempChoice.substring(0, 4)}`;
+                slotOpponent.textContent = translations[currentLang][translationKey];
+                blinkCount++;
                 
-                const opponentChoice = choices[Math.floor(Math.random() * choices.length)];
-                const finalTranslationKey = `choice-${opponentChoice.substring(0, 4)}`;
-                slotOpponent.textContent = translations[currentLang][finalTranslationKey];
-                slotOpponent.style.borderColor = choiceColors[opponentChoice];
-                slotOpponent.style.boxShadow = `0 0 10px ${choiceColors[opponentChoice]}`;
-                
-                determineChessResult(playerChoice, opponentChoice);
-                btnReset.classList.remove('btn-hidden');
+                if (blinkCount > 8) {
+                    clearInterval(interval);
+                    
+                    const opponentChoice = choices[Math.floor(Math.random() * choices.length)];
+                    const finalTranslationKey = `choice-${opponentChoice.substring(0, 4)}`;
+                    slotOpponent.textContent = translations[currentLang][finalTranslationKey];
+                    slotOpponent.style.borderColor = choiceColors[opponentChoice];
+                    slotOpponent.style.boxShadow = `0 0 10px ${choiceColors[opponentChoice]}`;
+                    
+                    determineChessResult(playerChoice, opponentChoice);
+                    btnReset.classList.remove('btn-hidden');
+                }
+            }, 120);
+        });
+
+        function determineChessResult(player, opponent) {
+            let title = '';
+            let desc = '';
+            let status = 'lose';
+            
+            if (player === opponent) {
+                status = 'tie';
+            } else if (
+                (player === 'attack' && opponent === 'control') ||
+                (player === 'control' && opponent === 'defense') ||
+                (player === 'defense' && opponent === 'attack')
+            ) {
+                status = 'win';
             }
-        }, 120);
-    });
-
-    function determineChessResult(player, opponent) {
-        let title = '';
-        let desc = '';
-        let status = 'lose';
-        
-        if (player === opponent) {
-            status = 'tie';
-        } else if (
-            (player === 'attack' && opponent === 'control') ||
-            (player === 'control' && opponent === 'defense') ||
-            (player === 'defense' && opponent === 'attack')
-        ) {
-            status = 'win';
+            
+            if (status === 'tie') {
+                title = translations[currentLang]['res-tie-title'];
+                const choiceText = translations[currentLang][`choice-${player.substring(0, 4)}`].split(' ')[1];
+                desc = translations[currentLang]['res-tie-desc'].replace('{choice}', choiceText);
+                screenResult.style.color = 'var(--text-muted)';
+            } else if (status === 'win') {
+                title = translations[currentLang]['res-win-title'];
+                desc = translations[currentLang][`res-win-${player.substring(0, 4)}`];
+                screenResult.style.color = 'var(--neon-green)';
+            } else {
+                title = translations[currentLang]['res-lose-title'];
+                desc = translations[currentLang][`res-lose-${opponent.substring(0, 4)}`];
+                screenResult.style.color = '#ff3333';
+            }
+            
+            screenResult.innerHTML = `<strong>${title}</strong><br>${desc}`;
         }
-        
-        if (status === 'tie') {
-            title = translations[currentLang]['res-tie-title'];
-            const choiceText = translations[currentLang][`choice-${player.substring(0, 4)}`].split(' ')[1];
-            desc = translations[currentLang]['res-tie-desc'].replace('{choice}', choiceText);
+
+        btnReset.addEventListener('click', () => {
+            playerChoice = null;
+            chessCards.forEach(c => c.classList.remove('selected'));
+            
+            slotPlayer.textContent = '—';
+            slotPlayer.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+            slotPlayer.style.boxShadow = 'none';
+            
+            slotOpponent.textContent = '—';
+            slotOpponent.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+            slotOpponent.style.boxShadow = 'none';
+            
+            screenResult.textContent = translations[currentLang]['sim-start-prompt'];
             screenResult.style.color = 'var(--text-muted)';
-        } else if (status === 'win') {
-            title = translations[currentLang]['res-win-title'];
-            desc = translations[currentLang][`res-win-${player.substring(0, 4)}`];
-            screenResult.style.color = 'var(--neon-green)';
-        } else {
-            title = translations[currentLang]['res-lose-title'];
-            desc = translations[currentLang][`res-lose-${opponent.substring(0, 4)}`];
-            screenResult.style.color = '#ff3333';
-        }
-        
-        screenResult.innerHTML = `<strong>${title}</strong><br>${desc}`;
+            
+            btnReveal.classList.add('btn-disabled');
+            btnReveal.setAttribute('disabled', 'true');
+            btnReveal.classList.remove('btn-hidden');
+            
+            btnReset.classList.add('btn-hidden');
+        });
     }
-
-    btnReset.addEventListener('click', () => {
-        playerChoice = null;
-        chessCards.forEach(c => c.classList.remove('selected'));
-        
-        slotPlayer.textContent = '—';
-        slotPlayer.style.borderColor = 'rgba(255, 255, 255, 0.05)';
-        slotPlayer.style.boxShadow = 'none';
-        
-        slotOpponent.textContent = '—';
-        slotOpponent.style.borderColor = 'rgba(255, 255, 255, 0.05)';
-        slotOpponent.style.boxShadow = 'none';
-        
-        screenResult.textContent = translations[currentLang]['sim-start-prompt'];
-        screenResult.style.color = 'var(--text-muted)';
-        
-        btnReveal.classList.add('btn-disabled');
-        btnReveal.setAttribute('disabled', 'true');
-        btnReveal.classList.remove('btn-hidden');
-        
-        btnReset.classList.add('btn-hidden');
-    });
 
 
 
@@ -616,31 +676,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const formFeedback = document.getElementById('form-feedback');
     const btnSubmit = document.getElementById('btn-submit-form');
     
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const originalText = translations[currentLang]['btn-send'];
-        btnSubmit.textContent = currentLang === 'en' ? 'SENDING...' : (currentLang === 'ua' ? 'ВІДПРАВКА...' : 'ОТПРАВКА...');
-        btnSubmit.classList.add('btn-disabled');
-        btnSubmit.setAttribute('disabled', 'true');
-        
-        setTimeout(() => {
-            formFeedback.classList.remove('hidden');
-            formFeedback.className = 'form-feedback-message success';
-            formFeedback.innerHTML = translations[currentLang]['form-success'];
+    if (form && btnSubmit && formFeedback) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
             
-            form.reset();
-            
-            btnSubmit.textContent = originalText;
-            btnSubmit.classList.remove('btn-disabled');
-            btnSubmit.removeAttribute('disabled');
+            const originalText = translations[currentLang]['btn-send'];
+            btnSubmit.textContent = currentLang === 'en' ? 'SENDING...' : (currentLang === 'ua' ? 'ВІДПРАВКА...' : 'ОТПРАВКА...');
+            btnSubmit.classList.add('btn-disabled');
+            btnSubmit.setAttribute('disabled', 'true');
             
             setTimeout(() => {
-                formFeedback.classList.add('hidden');
-            }, 8000);
-            
-        }, 1500);
-    });
+                formFeedback.classList.remove('hidden');
+                formFeedback.className = 'form-feedback-message success';
+                formFeedback.innerHTML = translations[currentLang]['form-success'];
+                
+                form.reset();
+                
+                btnSubmit.textContent = originalText;
+                btnSubmit.classList.remove('btn-disabled');
+                btnSubmit.removeAttribute('disabled');
+                
+                setTimeout(() => {
+                    formFeedback.classList.add('hidden');
+                }, 8000);
+                
+            }, 1500);
+        });
+    }
 
     /* ==========================================
        7. IP PROTECTION & RIGHT-CLICK TOAST
